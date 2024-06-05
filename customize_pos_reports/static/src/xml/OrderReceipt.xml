@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="customize_pos_reports.ReceiptHeader"
+        t-inherit="point_of_sale.ReceiptHeader"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('cashier')]//div[2]" position="replace" />
+    </t>
+</templates>
