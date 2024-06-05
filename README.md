@@ -9,12 +9,6 @@ Odoo Addons for Georgie's Ceramic and Clay Co.
 <!-- prettier-ignore-start -->
 
 [//]: # (addons)
-
-Available addons
-----------------
-addon | version | maintainers | summary
---- | --- | --- | ---
-
 [//]: # (end addons)
 
 <!-- prettier-ignore-end -->
