@@ -10,11 +10,11 @@ Odoo Addons for Georgie's Ceramic and Clay Co.
 
 [//]: # (addons)
 
-Unported addons
----------------
+Available addons
+----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[sale_order_qty_stock_move](sale_order_qty_stock_move/) | 14.0.0.1 (unported) |  | To Increase or Decrease in sock move quantity as per sale order
+[sale_order_qty_stock_move](sale_order_qty_stock_move/) | 17.0.1.0.0 | [![miikanissi](https://github.com/miikanissi.png?size=30px)](https://github.com/miikanissi) | Increase or Decrease in stock move quantity per sale order
 
 [//]: # (end addons)
 
