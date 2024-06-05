@@ -10,5 +10,6 @@
     "installable": True,
     "application": False,
     "depends": ["sale_stock"],
+    "external_dependencies": {"python": ["odoo_upgrade"]},
     "data": [],
 }

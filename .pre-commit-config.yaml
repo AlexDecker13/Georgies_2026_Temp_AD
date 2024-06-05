@@ -48,7 +48,6 @@ repos:
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
         args: ["https://github.com/rtonneso/https-github.com-rtonneso-RJ/"]
-      - id: oca-gen-external-dependencies
       - id: oca-gen-addons-table
   - repo: https://github.com/OCA/odoo-pre-commit-hooks
     rev: v0.0.25
