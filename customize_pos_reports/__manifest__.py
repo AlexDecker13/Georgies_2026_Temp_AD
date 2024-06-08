@@ -6,6 +6,7 @@
     "website": "https://github.com/rtonneso/https-github.com-rtonneso-RJ/",
     "author": "Georgie's Ceramic & Clay Co., Konsultoo Software Consulting",
     "maintainers": ["miikanissi"],
+    "license": "LGPL-3",
     "installable": True,
     "application": False,
     "depends": ["point_of_sale"],
