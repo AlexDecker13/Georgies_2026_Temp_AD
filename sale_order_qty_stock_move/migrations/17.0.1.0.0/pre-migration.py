@@ -5,23 +5,31 @@ from odoo.upgrade import util
 _logger = logging.getLogger(__name__)
 
 
-def disable_record(cr, xml_id):
+def disable_record(cr, xml_id, view_id=None):
     """
     This function disables a record in the database.
 
     Parameters:
     cr (Cursor): The database cursor, used for database operations.
     xml_id (str): The XML ID of the record to be disabled.
+    view_id (int, optional): The ID of the view to be disabled. Defaults to None.
 
     Returns:
     None
+
+    This function attempts to disable a record in the database. If a view_id is provided,
+    it is used as the record_id. Otherwise, the function uses the xml_id to find the record_id.
+    If a record_id is found, the function sets the 'active' field of the corresponding record to False.
     """
-    record = util.ref(
-        cr,
-        xml_id,
-    )
-    if record:
-        util.env(cr)["ir.ui.view"].browse(record).write({"active": False})
+    if view_id:
+        record_id = view_id
+    else:
+        record_id = util.ref(
+            cr,
+            xml_id,
+        )
+    if record_id:
+        util.env(cr)["ir.ui.view"].browse(record_id).write({"active": False})
 
 
 def migrate(cr, version):
@@ -94,3 +102,10 @@ def migrate(cr, version):
         cr,
         "studio_customization.default_tree_view_fo_d324d9f3-ed8d-40b6-bc9c-508ddc41bc12",
     )
+    disable_record(cr, False, view_id=4072)
+    disable_record(cr, False, view_id=4080)
+    disable_record(cr, False, view_id=4081)
+    disable_record(cr, False, view_id=4082)
+    disable_record(cr, False, view_id=4091)
+    disable_record(cr, False, view_id=4092)
+    _logger.info("Broken studio views disabled.")
