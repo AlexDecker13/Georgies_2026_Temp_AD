@@ -41,8 +41,6 @@ def migrate(cr, version):
     _logger.info("Reseting views to defaults...")
     hard_reset_view(env, 1486)
     hard_reset_view(env, 1485)
-    hard_reset_view(env, 4425)
-    hard_reset_view(env, 4426)
     hard_reset_view(env, 3598)
     hard_reset_view(env, 4093)
     _logger.info("Views reset to defaults.")
