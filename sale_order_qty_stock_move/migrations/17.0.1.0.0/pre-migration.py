@@ -159,4 +159,6 @@ def migrate(cr, version):
     _logger.info("Broken studio views disabled.")
 
     _logger.info("Removing broken website menu items")
+    env["website.menu"].browse(66).unlink()
+    env["website.menu"].browse(67).unlink()
     _logger.info("Broken website menu items removed.")
