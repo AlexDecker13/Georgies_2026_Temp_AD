@@ -1,0 +1,1551 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="account.menu_account_customer" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.res_partner_action_customer"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Customers</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_bank_journal_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_new_bank_setting"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Add a Bank Account</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_fiscal_position_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_fiscal_position_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Fiscal Positions</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user'), ref('account.group_account_readonly')])]"/>
+    <field name="name">Chart of Accounts</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_invoice_report_all" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_invoice_report_all"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Invoice Analysis</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_journal_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_journal_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Journals</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_journal_group_list" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_journal_group_list"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Journal Groups</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_account_payments"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Payments</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_analytic_lines_tree" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="analytic.account_analytic_line_action_entries"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('analytic.group_analytic_accounting')])]"/>
+    <field name="name">Analytic Items</field>
+    <field name="parent_id" ref="account.account_management_menu"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_currency_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_currency_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_multi_currency')])]"/>
+    <field name="name">Currencies</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_incoterm_open" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_incoterms_tree"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Incoterms</field>
+    <field name="parent_id" ref="account.account_invoicing_menu"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_move_out_invoice_type" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_move_out_invoice_type"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Invoices</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_move_out_refund_type" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_move_out_refund_type"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Credit Notes</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_payment_term_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_payment_term_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Payment Terms</field>
+    <field name="parent_id" ref="account.account_invoicing_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_rounding_form_view" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.rounding_list_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_cash_rounding')])]"/>
+    <field name="name">Cash Roundings</field>
+    <field name="parent_id" ref="account.account_management_menu"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_action_tax_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_tax_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Taxes</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_finance_entries_accounting_miscellaneous" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Journals</field>
+    <field name="parent_id" ref="account.menu_finance_entries"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_finance_entries_actions" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user')])]"/>
+    <field name="name">Actions</field>
+    <field name="parent_id" ref="account.menu_finance_entries"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_finance_entries_management" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_invoice'), ref('account.group_account_readonly')])]"/>
+    <field name="name">Management</field>
+    <field name="parent_id" ref="account.menu_finance_entries"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.menu_product_product_categories" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="product.product_category_action_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Product Categories</field>
+    <field name="parent_id" ref="account.account_management_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account.product_product_menu_sellable" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.product_product_action_sellable"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Products</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_accountant.account_tag_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_accountant.account_tag_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Account Tags</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">8</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_accountant.menu_account_fiscal_year" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_accountant.actions_account_fiscal_year"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account_accountant.group_fiscal_year')])]"/>
+    <field name="name">Fiscal Years</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">11</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_accountant.menu_account_group" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_accountant.action_account_group_tree"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Account Groups</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">9</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_asset.menu_action_account_asset_model_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_asset.action_account_asset_model_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Asset Models</field>
+    <field name="parent_id" ref="account.account_management_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_asset.menu_action_account_report_assets" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_asset.action_account_report_assets"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Depreciation Schedule</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_batch_payment.menu_batch_payment_sales" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_batch_payment.action_batch_payment_in"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user'), ref('account.group_account_readonly')])]"/>
+    <field name="name">Batch Payments</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_followup.account_followup_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_followup.action_account_followup_line_definition_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Follow-up Levels</field>
+    <field name="parent_id" ref="account.account_invoicing_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_followup.customer_statements_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_followup.action_view_list_customer_statements"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_invoice')])]"/>
+    <field name="name">Follow-up Reports</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_online_synchronization.menu_action_online_link_account" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_online_synchronization.action_account_online_link_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('account.group_account_manager')])]"/>
+    <field name="name">Online Synchronization</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_payment.payment_method_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="payment.action_payment_method"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Payment Icons</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">15</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_payment.payment_provider_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="payment.action_payment_provider"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Payment Providers</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_payment.payment_token_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="payment.action_payment_token"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Payment Tokens</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">20</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_payment.payment_transaction_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="payment.action_payment_transaction"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Payment Transactions</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">25</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_reports.menu_action_account_report_multicurrency_revaluation" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_reports.action_account_report_multicurrency_revaluation"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_multi_currency')])]"/>
+    <field name="name">Unrealized Currency Gains/Losses</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_reports.menu_action_report_account_analytic" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.action_analytic_reporting"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('analytic.group_analytic_accounting')])]"/>
+    <field name="name">Analytic Report</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="account_taxcloud.menu_taxcloud_tic_category_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account_taxcloud.account_taxcloud_tic_category_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">TaxCloud Categories</field>
+    <field name="parent_id" ref="account.account_management_menu"/>
+    <field name="sequence">9</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="base.menu_action_res_company_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_res_company_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Companies</field>
+    <field name="parent_id" ref="base.menu_users"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="base.menu_action_res_groups" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_res_groups"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Groups</field>
+    <field name="parent_id" ref="base.menu_users"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="base.menu_action_res_users" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_res_users"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Users</field>
+    <field name="parent_id" ref="base.menu_users"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="base.menu_administration" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager'), ref('base.group_system')])]"/>
+    <field name="name">Settings</field>
+    <field name="parent_id" eval="False"/>
+    <field name="sequence">550</field>
+    <field name="web_icon">base,static/description/settings.png</field>
+  </record>
+  <record id="contacts.menu_config_bank_accounts" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bank Accounts</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_localisation" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Localization</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_country_group" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_country_group"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Country Group</field>
+    <field name="parent_id" ref="contacts.menu_localisation"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_country_partner" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_country"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Countries</field>
+    <field name="parent_id" ref="contacts.menu_localisation"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_country_state_partner" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_country_state"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Fed. States</field>
+    <field name="parent_id" ref="contacts.menu_localisation"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_partner_category_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_partner_category_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Contact Tags</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.menu_partner_title_contact" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_partner_title_contact"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Contact Titles</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="contacts.res_partner_industry_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.res_partner_industry_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Industries</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="delivery.sale_menu_action_delivery_carrier_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="delivery.action_delivery_carrier_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Shipping Methods</field>
+    <field name="parent_id" ref="sale.menu_sales_config"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="event.menu_event_configuration" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('event.group_event_user')])]"/>
+    <field name="name">Configuration</field>
+    <field name="parent_id" ref="event.event_main_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="event.menu_event_event" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="event.action_event_view"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('event.group_event_user')])]"/>
+    <field name="name">Events</field>
+    <field name="parent_id" ref="event.event_main_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="event.menu_reporting_events" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('event.group_event_manager')])]"/>
+    <field name="name">Reporting</field>
+    <field name="parent_id" ref="event.event_main_menu"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_bom_form_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_bom_form_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bills of Materials</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_product_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.product_template_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Products</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_production_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_production_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Manufacturing Orders</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_production_report" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.action_mrp_production_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Manufacturing Orders</field>
+    <field name="parent_id" ref="mrp.menu_mrp_reporting"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_scrap" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_stock_scrap"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Scrap</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_traceability" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_production_lot_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_production_lot')])]"/>
+    <field name="name">Lots/Serial Numbers</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_unbuild" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_unbuild"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Unbuild Orders</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_work_order_report" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_workorder_report"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('mrp.group_mrp_routings')])]"/>
+    <field name="name">Work Orders</field>
+    <field name="parent_id" ref="mrp.menu_mrp_reporting"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_workcenter_productivity_report" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_workcenter_productivity_report"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('mrp.group_mrp_routings')])]"/>
+    <field name="name">Overall Equipment Effectiveness</field>
+    <field name="parent_id" ref="mrp.menu_mrp_reporting"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_mrp_workorder_todo" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_workorder_todo"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('mrp.group_mrp_routings')])]"/>
+    <field name="name">Work Orders</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.menu_view_resource_search_mrp" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_workcenter_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('mrp.group_mrp_routings')])]"/>
+    <field name="name">Work Centers</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="mrp.product_variant_mrp" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="mrp.mrp_product_variant_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('product.group_product_variant')])]"/>
+    <field name="name">Product Variants</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_point_of_sale_customer" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.res_partner_action_customer"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Customers</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_point_ofsale" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="point_of_sale.action_pos_pos_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('point_of_sale.group_pos_manager'), ref('point_of_sale.group_pos_user')])]"/>
+    <field name="name">Orders</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_pos_payment" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="point_of_sale.action_pos_payment_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('point_of_sale.group_pos_manager'), ref('point_of_sale.group_pos_user')])]"/>
+    <field name="name">Payments</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_pos_session_all" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="point_of_sale.action_pos_session"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('point_of_sale.group_pos_manager')])]"/>
+    <field name="name">Sessions</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_report_order_details" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="point_of_sale.action_report_pos_details"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Sales Details</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_rep"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="point_of_sale.menu_report_pos_order_all" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="point_of_sale.action_report_pos_order_all"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Orders</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_rep"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="project.menu_main_pm" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('project.group_project_manager'), ref('project.group_project_user')])]"/>
+    <field name="name">Firing</field>
+    <field name="parent_id" eval="False"/>
+    <field name="sequence">50</field>
+    <field name="web_icon">fa fa-database,#EB5A46,#34495e</field>
+  </record>
+  <record id="sale.menu_product_attribute_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="product.attribute_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('product.group_product_variant')])]"/>
+    <field name="name">Attributes</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_product_categories" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="product.product_category_action_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Product Categories</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">8</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_product_pricelist_main" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="product.product_pricelist_action2"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('product.group_product_pricelist')])]"/>
+    <field name="name">Pricelists</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_product_template_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="sale.product_template_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Products</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_product_uom_categ_form_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="uom.product_uom_categ_form_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('uom.group_uom')])]"/>
+    <field name="name">Units of Measure Categories</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_product_uom_form_action" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="uom.product_uom_form_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('uom.group_uom')])]"/>
+    <field name="name">Units of Measure</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_products" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="product.product_normal_action_sell"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('product.group_product_variant')])]"/>
+    <field name="name">Product Variants</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_sale_order" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="sale.action_orders"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+    <field name="name">Orders</field>
+    <field name="parent_id" ref="sale.sale_order_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_sale_quotations" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="sale.action_quotations_with_onboarding"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+    <field name="name">Quotations</field>
+    <field name="parent_id" ref="sale.sale_order_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.menu_tag_config" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="sales_team.sales_team_crm_tag_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Tags</field>
+    <field name="parent_id" ref="sale.menu_sales_config"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.report_sales_team" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="sales_team.crm_team_action_sales"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+    <field name="name">Sales Teams</field>
+    <field name="parent_id" ref="sale.sale_order_menu"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale.res_partner_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="account.res_partner_action_customer"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+    <field name="name">Customers</field>
+    <field name="parent_id" ref="sale.sale_order_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale_loyalty.menu_discount_loyalty_type_config" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="loyalty.loyalty_program_discount_loyalty_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+    <field name="name">Discount &amp; Loyalty</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="sale_loyalty.menu_gift_ewallet_type_config" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="loyalty.loyalty_program_gift_ewallet_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+    <field name="name">Gift cards &amp; eWallet</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_action_location_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_location_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_stock_multi_locations')])]"/>
+    <field name="name">Locations</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_action_production_lot_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_production_lot_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_production_lot')])]"/>
+    <field name="name">Lots/Serial Numbers</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_action_rules_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_rules_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_adv_location')])]"/>
+    <field name="name">Rules</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_action_warehouse_form" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_warehouse_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Warehouses</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_package" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_package_view"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_tracking_lot')])]"/>
+    <field name="name">Packages</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_pickingtype" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_picking_type_list"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Operations Types</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_procurement_compute" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_procurement_compute"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Run Scheduler</field>
+    <field name="parent_id" ref="stock.menu_stock_warehouse_mgmt"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_product_variant_config_stock" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.product_template_action_product"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Products</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_putaway" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_putaway_tree"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_stock_multi_locations')])]"/>
+    <field name="name">Putaway Rules</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_reordering_rules_replenish" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_replenishment"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_stock_manager')])]"/>
+    <field name="name">Replenishment</field>
+    <field name="parent_id" ref="stock.menu_stock_warehouse_mgmt"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_routes_config" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_routes_form"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('stock.group_adv_location')])]"/>
+    <field name="name">Routes</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_stock_scrap" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_stock_scrap"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Scrap</field>
+    <field name="parent_id" ref="stock.menu_stock_warehouse_mgmt"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.menu_valuation" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.action_view_quants"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Inventory Report</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.product_product_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.stock_product_normal_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('product.group_product_variant')])]"/>
+    <field name="name">Product Variants</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.stock_move_line_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.stock_move_line_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Product Moves</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock.stock_move_menu" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock.stock_move_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+    <field name="name">Stock Moves</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock_account.menu_valuation" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock_account.stock_valuation_layer_action"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Inventory Valuation</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="stock_enterprise.stock_dashboard_menuitem" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="stock_enterprise.stock_report_action_performance"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Warehouse Analysis</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_bank_stat_b783c421-da51-418e-8d5e-b1f0e07ecb05" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.bank_statements_ff8987d2-aefd-44e0-86a0-7977a731a438"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Bank Statements</field>
+    <field name="parent_id" ref="account.menu_finance_entries"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_brian_s_l_39ce9d3a-faa6-4b3f-94ff-c68df0c1fe2c" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.brian_s_lovely_orego_8323122d-fdf3-470c-b797-c7b81f8db69a"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Whata Lovely Oregon Sales by Zip Code Report</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_daily_dep_8adae6d6-4b16-4872-ac3a-021b220a696b" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.daily_deposit_v2_e92a742f-1dbf-41eb-b80a-198347c4aa3b"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Daily Deposit V2</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">9</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_daily_dep_be1fe3f2-b630-4c3d-a52b-cc7152730b60" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.daily_deposits_dd5e8f27-6b0e-4bc9-a456-99066074c56e"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Daily Deposits</field>
+    <field name="parent_id" ref="account.menu_finance_receivables"/>
+    <field name="sequence">8</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_front_fac_af54667a-fa36-440f-ae56-72644fbb4e2f" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.front_facing_payment_b16595b0-1af9-45bf-86ee-1955bc678f38"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Front Facing Payment Methods</field>
+    <field name="parent_id" ref="account_accountant.menu_accounting"/>
+    <field name="sequence">36</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_front_fac_c7d49a0e-e2ca-4fa9-b5fc-a62702a1b798" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.front_facing_payment_53ccaf41-352f-46b5-962d-b455a1a9ddb7"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Front Facing Payment Methods</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_imports_de1ec247-c67d-4f42-83de-49202f718bb0" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.action_open_website"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Imports</field>
+    <field name="parent_id" ref="account_accountant.menu_accounting"/>
+    <field name="sequence">36</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_interest__2122455e-39ef-49ea-9dbd-79bda88e90d1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.interest_reporting_7320e6ce-ff94-4ca2-a127-1bbe42a28297"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Interest Charge Report</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_internal__5929ff49-fb58-495c-b1f9-30162aa99fa9" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.internal_payment_met_e3f51b9b-4839-475f-9fc3-5c9a0d91b291"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Internal Payment Methods</field>
+    <field name="parent_id" ref="account_accountant.menu_accounting"/>
+    <field name="sequence">37</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_journal_e_6270a024-b1f0-4497-847d-689d7d0ed411" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.journal_entry_import_afe9dc57-9c7d-49c6-98f5-e558a45a7bc9"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Journal Entry Import</field>
+    <field name="parent_id" ref="studio_customization.accounting_imports_de1ec247-c67d-4f42-83de-49202f718bb0"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_journal_i_c4112a19-5133-4e6f-9b99-745c75179fa1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.journal_item_imports_0ed72507-cf05-4906-94e6-6d368c490a6a"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Journal Item Imports</field>
+    <field name="parent_id" ref="studio_customization.accounting_imports_de1ec247-c67d-4f42-83de-49202f718bb0"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_linda_s_l_5af193f1-cdc2-46f1-a338-1eae8bb6ea1a" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.linda_s_lovely_repor_f0e2fcfe-57ff-45ac-b572-e8a54359b29f"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Linda's Lovely Report</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_online_ba_c0e2bd71-5fa2-4d45-8dd8-a9370c27c9b1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.online_bank_accounts_144533bd-d23f-4a79-96c9-2b6265a02408"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Online Bank Accounts</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_online_ba_eca917d2-b2b9-4a68-8aac-e0879af32d5e" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.online_bank_accounts_ddb841bd-ec29-40c4-8fa7-a4b232eab342"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Online Bank Accounts</field>
+    <field name="parent_id" ref="account.account_account_menu"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_payments__207750b4-4d71-4f76-98fe-079e6884c181" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.payments_payment_met_2a9b3490-dae7-411b-b2b8-2605cc9b014b"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Payments Payment Methods</field>
+    <field name="parent_id" ref="account.root_payment_menu"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.accounting_sales_rep_2a579e0d-d246-4dea-b4a1-03c2789ab682" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.sales_report_00bf317e-a0ab-4238-8d63-9f5795b34c00"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Sales Report</field>
+    <field name="parent_id" ref="account.account_reports_management_menu"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.apps_all_modules_303d734d-aeec-4fce-ac5a-2f0df5d4f231" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.all_modules_0268f588-e00e-4dbc-90ba-efb6907bb21d"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">All Modules</field>
+    <field name="parent_id" ref="base.menu_management"/>
+    <field name="sequence">101</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.contacts_companies_96e0a4c3-5835-433e-9ca8-e32e510f1548" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.companies_c251f190-cd40-470a-9369-da74172cc8a7"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Companies</field>
+    <field name="parent_id" ref="contacts.menu_contacts"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.contacts_location_3f60a1ba-62c6-4097-8af9-0f1482a86894" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.location_43d8cc89-e4a6-46d0-9ed2-56c33bfc1933"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Locations</field>
+    <field name="parent_id" ref="contacts.res_partner_menu_config"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.contacts_zip_to_stat_5f8a1a99-6b1c-41c3-851b-aed179ab46b7" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.zip_to_state_d1675d97-99b5-4287-9c3c-ce0019dcc7ab"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Zip to State</field>
+    <field name="parent_id" ref="contacts.menu_localisation"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.events_wait_list_466cdc9a-a9cd-4a91-bf3c-b84d55b365e5" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.wait_list_3057b4d3-fd49-409c-a110-683c16455242"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Wait List</field>
+    <field name="parent_id" ref="event.event_main_menu"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.events_wait_list_d82ffce8-3ba3-4a0d-b93a-aeb2005ce3f5" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.wait_list_e84a731e-fe3d-4cd1-94ab-6fc51056a579"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Wait List</field>
+    <field name="parent_id" ref="event.menu_event_event"/>
+    <field name="sequence" eval="False"/>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.gift_cards_1341df68-78d5-4cb7-90cc-dcdf1d8acb9b" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Gift Cards</field>
+    <field name="parent_id" eval="False"/>
+    <field name="sequence">10</field>
+    <field name="web_icon">fa fa-credit-card,#2ecc71,#34495e</field>
+  </record>
+  <record id="studio_customization.gift_cards_create_gi_70975413-5136-4bd3-8818-d8c3168b90ec" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.create_gift_cards_bf4d7901-99d9-4b52-9c96-20da56f3ad6d"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Create Gift Cards</field>
+    <field name="parent_id" ref="studio_customization.gift_cards_1341df68-78d5-4cb7-90cc-dcdf1d8acb9b"/>
+    <field name="sequence">11</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.gift_cards_gift_card_8c94ad09-8d47-4d0d-9b15-284f0db81214" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.gift_cards_2067e44c-bede-4ad6-a5db-d6f409c89dc4"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Gift Cards</field>
+    <field name="parent_id" ref="studio_customization.gift_cards_1341df68-78d5-4cb7-90cc-dcdf1d8acb9b"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_inter_ware_31fffe87-f4f9-454a-8a45-2ebab97cedc1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.inter_warehouse_tran_e361de07-6661-4e4a-a3da-b5be7e3042d7"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Inter Warehouse Transfers</field>
+    <field name="parent_id" ref="stock.menu_stock_warehouse_mgmt"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_picking_ty_b99b3ac8-c4b0-4908-9170-2293a04791ac" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.picking_types_02f28b79-9a6c-4e1c-8dc9-2d270c5c280f"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Picking Types</field>
+    <field name="parent_id" ref="stock.menu_stock_root"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_picking_ty_d6b3883c-5617-408d-9221-2c0162d20169" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.picking_types_new_b958f03e-8ad0-44c5-b13e-683aad00386b"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Picking Types New</field>
+    <field name="parent_id" ref="stock.menu_stock_root"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_quantities_3feb7a5e-af18-425f-9e26-e1874ff51c0c" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.quantities_report_39d4491a-b452-4f19-af1b-ce0345d2a0d4"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Quantities Report</field>
+    <field name="parent_id" ref="stock.menu_warehouse_report"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_quantities_c94841a6-a9b5-494e-b05b-99a2e6d4044b" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.quantities_on_hand_f3507ada-67f1-4447-a63a-3e48362f44de"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Quantities on Hand</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_shipping_o_8658af9f-791d-409f-a7f3-d69680379293" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.shipping_options_eef572bc-82e8-4922-8571-8655d6e95c36"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Shipping Options</field>
+    <field name="parent_id" ref="stock.menu_warehouse_config"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_stock_move_6a120e25-9b07-432d-929f-81a579f5f2cd" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stock_moves_097f01d6-3f62-461e-80ca-8058a957578c"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Stock Moves</field>
+    <field name="parent_id" ref="stock.menu_stock_root"/>
+    <field name="sequence">101</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_stock_move_c347412a-c2c1-4c62-a667-dbcf5e06bde8" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stock_move_lines_323b2f55-52a0-40ca-aa18-676d56005c21"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Stock Move Lines</field>
+    <field name="parent_id" ref="stock.menu_stock_warehouse_mgmt"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_stock_rese_cc32f5b9-1428-4bea-8cf9-d6f5550a5bc1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stock_reservations_ad5f1b35-568b-4d24-b8dc-6868609cfa80"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Stock Reservations</field>
+    <field name="parent_id" ref="stock.menu_stock_inventory_control"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_stock_rule_ffdab04c-c0e8-4197-9bb2-f70b84e8db8c" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stock_rules_fb2b9883-cbba-4e17-add2-9e140d3d5b55"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Stock Rules</field>
+    <field name="parent_id" ref="stock.menu_stock_root"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.inventory_transfer_l_2c2f4c25-de49-4f0d-a22a-6a36d6d2f8a2" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.transfer_lines_e9b7be3d-e303-4cff-90df-0a3a35d03cba"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Transfer Lines</field>
+    <field name="parent_id" ref="stock.menu_stock_root"/>
+    <field name="sequence">101</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_batch__4e3be20b-62b8-4c7d-bbaa-def1486594f2" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.batch_set_groups_b5c91f9e-a837-4b33-98c7-db549c8b2a0c"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Requirements Report</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_batch__9249329c-a426-446c-8784-5f084e82602d" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.batch_sets_115ab6b4-bcfe-4e31-8aa6-37383f49eb51"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Batch Sets</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_bom_li_bf47256d-e7e6-47e5-aef6-068e054eaa23" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.bom_line_import_723aef5d-4ec0-4865-878f-d01a28a084eb"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">BoM Lines (Import)</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_christ_3d3acd2e-2cb6-4682-8be0-22cce7acee49" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.christy_s_daily_stoc_d2216433-1c68-4f03-8961-0a1cba775e5a"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Christy's Daily Stock</field>
+    <field name="parent_id" ref="mrp.menu_mrp_reporting"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_christ_4c68aded-1714-4de6-ba44-fcf100613877" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.christy_s_daily_stoc_e0407079-9671-4bd5-abef-173f11fcf539"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Christy's Daily Stock 2</field>
+    <field name="parent_id" ref="mrp.menu_mrp_reporting"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_mixing_d9677e1c-4a88-45d5-9692-df63f93d9402" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.mixing_instructions_661c449d-134a-414f-8a70-fa4ea2fc3669"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Mixing Instructions</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_propos_06f88750-4189-44e6-be69-c18973f62fb3" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.proposed_batch_25958cb0-bb1d-41ab-b816-411dd4af8144"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Proposed Batch</field>
+    <field name="parent_id" ref="mrp.menu_mrp_root"/>
+    <field name="sequence">101</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_qualit_b43531af-f313-440e-baf4-17906ac17554" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.quality_control_chec_22a21a0d-112c-40bf-b577-6392efb78e5a"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Quality Control Checks</field>
+    <field name="parent_id" ref="mrp.menu_mrp_bom"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_set_gr_4d9dac39-c0b4-4944-aac8-10c7012be312" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.set_group_components_280591dc-9436-4978-9687-6158bbfd3e55"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Set Group Components</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.manufacturing_stock__2780ae68-1d59-4891-8131-8f9f65c11b0e" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stock_moves_d69d77a2-0c25-4f38-ac63-2beeee6a54e5"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Stock Moves</field>
+    <field name="parent_id" ref="mrp.menu_mrp_manufacturing"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.point_of_sale_cash_r_b4461394-fb19-4678-8bcb-d1c9029c5fd1" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.cash_register_statem_c3ecd2ad-91e4-443d-bb27-6a3180b4ca7c"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Cash Register Statements</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence">5</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.point_of_sale_order__a4c0ce36-8f45-4219-acbf-4c26d75e0305" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.order_lines_ff6433b7-b839-4848-92c2-5a98007500a6"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Order Lines</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_of_sale"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.point_of_sale_pos_or_8d92988c-c800-4113-824c-a84646fc94fc" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pos_order_lines_b3c1cd53-1554-4747-add1-fcf47821a660"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">POS Order Lines</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_rep"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.point_of_sale_pos_or_eebec186-3f40-414b-a443-59f069183851" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pos_order_items_0ad9b672-d912-4b03-9911-2463b6bc5b31"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">POS Order Items</field>
+    <field name="parent_id" ref="point_of_sale.menu_point_rep"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.project_stage_58aaebd2-7d44-4b6e-9524-f07b06bb9080" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.stage_dd56b81f-98d6-46b5-a034-8c05518e2ccb"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">stage</field>
+    <field name="parent_id" ref="project.menu_main_pm"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_additional_pro_5a4afe0c-3365-40c9-a454-6efb48421cc2" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.additional_product_i_40e96f1d-834a-457e-8832-2d4ec27342f4"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Additional Product Images</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_color_9c36c38c-a2de-4c28-abeb-9f3d9504cf6b" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.color_6d8b5114-2a8c-499f-bd95-a464186ff78e"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Colors</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">2</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_ecommerce_prod_150f4585-ff05-4103-8f0e-51d18e484a2d" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.ecommerce_product_ca_d8ef8f94-19c6-4770-9047-cd611cbfcf40"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Ecommerce Product Categories</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">9</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_open_orders_re_accd6d77-90aa-4b54-9cab-81904526cef9" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.open_orders_report_5bd78cc9-604b-43d1-9dd6-8214640e61cc"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Open Orders Report</field>
+    <field name="parent_id" ref="sale.menu_sale_report"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_pos_orders_40a7eddd-a84e-4e53-9d4b-eaa246bf21e8" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pos_orders_51b66654-d674-4b8c-a53e-4c4c35cd594a"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">POS Orders</field>
+    <field name="parent_id" ref="sale.sale_order_menu"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_pricelist_expo_57eab759-3067-4d27-a9bb-42f47f63453c" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pricelist_export_v2_bcd8829c-a36a-4e1b-a728-04b931efe8b8"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Pricelist Export V2</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_pricelist_expo_a45ed7fc-a61b-4394-9608-146de9c993c2" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pricelist_export_4c54ce19-3f2e-4e9c-8987-91eb5ed8df33"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Pricelist Export</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">6</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_pricelist_item_f1f95f52-ee25-40d2-8210-5be47fe8d78a" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.pricelist_item_b915e11c-4c26-4208-873c-54e1dd7e5c9c"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Pricelist Item</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">4</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_product_qualit_09ca8eb3-5527-4df6-bc5a-e2762c7c20ee" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.product_qualities_516521c4-dde8-406f-89f2-eb4a4d2e2959"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Product Qualities</field>
+    <field name="parent_id" ref="sale.prod_config_main"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_sales_ac50fdc6-13cb-4a5d-8358-2964564117c3" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.sales_3f37266f-4676-45ec-b546-9b7e29e9e81e"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Sales</field>
+    <field name="parent_id" ref="sale.product_menu_catalog"/>
+    <field name="sequence">7</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.sales_woocommerce_or_7465f83f-55bc-4049-98bd-9757aa5de1b7" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.woocommerce_orders_l_6fde08ab-f2ad-421e-ac0c-25cca95873e7"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Woocommerce Orders Log</field>
+    <field name="parent_id" ref="sale.menu_sales_config"/>
+    <field name="sequence">3</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.settings_reports_6b97b8f6-471f-4a46-8625-d8664f905a12" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" eval="False"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Reports</field>
+    <field name="parent_id" ref="base.menu_administration"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.settings_reports_rep_6f8d5160-5d1a-4d2a-a40a-33cd4823b8f8" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="base.ir_action_report"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Report List</field>
+    <field name="parent_id" ref="studio_customization.settings_reports_6b97b8f6-471f-4a46-8625-d8664f905a12"/>
+    <field name="sequence">10</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.settings_user_locati_8089a9c4-4ab1-4eff-b36b-41939146e41d" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.user_locations_cedac124-65e7-42b4-97d9-7d5df8de6bbf"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">User Locations</field>
+    <field name="parent_id" ref="base.menu_users"/>
+    <field name="sequence">1</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.website_distributors_7b922cf4-49b5-4d2f-83aa-ef7e06165e6f" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.distributors_c41a188b-9219-4e3e-8f19-dd395c3371e8"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Distributors</field>
+    <field name="parent_id" ref="website.menu_website_configuration"/>
+    <field name="sequence">101</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="studio_customization.website_website_bran_07b503ea-334b-432e-9a56-b41ab28b7c3b" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="studio_customization.website_brands_70d85627-8e8d-4074-bbe8-8238d7e2ef96"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [])]"/>
+    <field name="name">Website Brands</field>
+    <field name="parent_id" ref="website.menu_website_configuration"/>
+    <field name="sequence">102</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+  <record id="website_blog.menu_website_blog_root" model="ir.ui.menu" context="{'studio': True}">
+    <field name="action" ref="website_blog.action_blog_post"/>
+    <field name="active" eval="True"/>
+    <field name="groups_id" eval="[(6, 0, [ref('website.group_website_designer')])]"/>
+    <field name="name">Blog Posts</field>
+    <field name="parent_id" ref="website.menu_website_configuration"/>
+    <field name="sequence">20</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+</odoo>

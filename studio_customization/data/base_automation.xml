@@ -1,0 +1,1053 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="studio_customization.add_all_child_produc_4c7c307e-0a18-4314-926e-b265732c6e6d" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_all_child_produc_41011337-4daa-4f0f-870a-c04e722b3df5')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["product_id.x_studio_child_products","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('mrp.field_mrp_production__product_id')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="mrp.model_mrp_production"/>
+    <field name="name">Add All Child Products</field>
+  </record>
+  <record id="studio_customization.add_components_e448956c-4320-4388-b75d-4832d5062b44" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_components_3a705787-95b9-426e-9f12-302f007cf207')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="studio_customization.batch_set_groups_9f50ce63-b8c5-42c1-8b7f-3800b5b1cc32"/>
+    <field name="name">Add Components</field>
+  </record>
+  <record id="studio_customization.add_credit_card_info_8459a719-398b-4fc4-a7d9-0b29582b7691" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_credit_card_info_9afa621a-60c7-4c0f-9840-5d20515e13ee')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Add Credit Card Info</field>
+  </record>
+  <record id="studio_customization.add_link_for_sales_o_64f961ae-7480-4ac1-97b0-d6a42a2fdff6" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_link_for_sales_o_bbe9edef-a01e-4744-89ca-36df2078a31a')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Add Link for Sales Order</field>
+  </record>
+  <record id="studio_customization.add_name_134068cc-c39b-4ad1-91ff-51d50c83e8d2" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_name_89f80596-cd8b-432b-8a5e-f033b54a2a2a')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="studio_customization.batch_sets_c7b48938-15ac-4a8a-8355-4b51aed55037"/>
+    <field name="name">Add Name</field>
+  </record>
+  <record id="studio_customization.add_shipping_and_cre_f7540bda-83d5-4893-801a-3d85e8b4bb16" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_shipping_and_cre_62091b36-78a7-4989-8021-2717719f7dc0')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;", "&amp;", ("state", "=", "done"), ("location_dest_id", "=", 5), ("x_studio_shippingfreight_type", "!=", False)]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Add Shipping on Price Add</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_4c7cd4e3-aa9f-461e-a483-fae048d35a7b" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_task_for_pos_a4efc036-c423-449f-888a-7d4dec34e36a')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["product_id.id","=",18511]]</field>
+    <field name="filter_pre_domain">[["product_id.id","=",18511]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_4f9583d5-0502-4700-868f-b20cd32e82a1" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_task_for_pos_par_ef0cd184-d112-4776-98f3-56a8ff29713e')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["lines.product_id.id","=",18511]]</field>
+    <field name="filter_pre_domain">[["lines.product_id.id","=",18511]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order"/>
+    <field name="name">Add Task for PoS Parent</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_ae31d231-741d-45ba-8108-2f105165f217" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_task_for_pos_par_e4db7004-78ff-4d87-be1f-4e11cf9e5666')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["product_id.id","=",18511]]</field>
+    <field name="filter_pre_domain">[["product_id.id","=",18511]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS Parent</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_b0ad943f-926b-4563-99cb-310881c4ad54" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_task_for_pos_par_9e1c19ba-7d0d-48b3-afc0-5db3004f26c3')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["product_id.id","=",18511]]</field>
+    <field name="filter_pre_domain">[["product_id.id","=",18511]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS Parent Python</field>
+  </record>
+  <record id="studio_customization.add_zip_1b78906e-f250-436d-8da9-d8687e58ffdd" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.add_zip_bc08327b-31e9-4246-9e46-9034b6dea092')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Add Zip</field>
+  </record>
+  <record id="studio_customization.adding_linked_produc_8e82042c-08d3-4eb7-ab52-fcd95874d417" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.adding_linked_produc_ab25bf76-118c-417b-b5be-317724d99562')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order__order_line')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Adding Linked Products</field>
+  </record>
+  <record id="studio_customization.adding_linked_produc_c0450067-1e24-4d19-854d-2e1650b59b1e" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.adding_linked_produc_f6f1118f-f26a-4edf-beb5-44b194843a33')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order__order_line')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Change Qty on Linked Product</field>
+  </record>
+  <record id="studio_customization.al_add_category_hier_bab6101f-88b1-4ea6-ac59-847b1f4e715e" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.execute_code_fa4784b3-90fa-4c7b-b772-fabe011e9a24')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">[AL] Add Category Hierarchy</field>
+  </record>
+  <record id="studio_customization.al_woocommerce_order_3db63261-ba6a-4dbc-b44d-7e321730eca5" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.execute_code_5abc90bb-a150-4199-91c6-159f5be696b9')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_webhook</field>
+    <field name="model_id" ref="studio_customization.woocommerce_orders_l_4775cba3-96df-4ee4-a12f-eda82b23000c"/>
+    <field name="name">[AL] Woocommerce Order</field>
+  </record>
+  <record id="studio_customization.amount_changed_493b3dc8-3724-474c-b109-b9ca3149eefe" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.amount_changed_ec0d4b0d-37f1-4d54-a333-e7415e89dcb4')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment__amount')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Amount Changed</field>
+  </record>
+  <record id="studio_customization.amount_changed_6172544b-eb7c-4eb6-9b7f-6d2ad64b4387" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.amount_changed_0ef17fea-7ce0-4292-b3b0-4180920fa605')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment__amount')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Amount Changed</field>
+  </record>
+  <record id="studio_customization.auto_populate_reserv_9ff06c9b-7126-4839-bb6b-cde5a5c6db18" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.auto_populate_reserv_5c7ae679-9496-487e-8c25-c83bd7b133ec')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["move_id.raw_material_production_id","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="stock.model_stock_move_line"/>
+    <field name="name">Auto Populate Reserved Quantity</field>
+  </record>
+  <record id="studio_customization.autopopulate_compone_88dd12a3-20e6-4291-a105-a4b43a79b2eb" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.autopopulate_compone_544bb713-fe23-4180-adc5-895b0f4060bb')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["state","=","confirmed"]]</field>
+    <field name="filter_pre_domain">[["state","!=","confirmed"]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="mrp.model_mrp_production"/>
+    <field name="name">Set on Confirm</field>
+  </record>
+  <record id="studio_customization.cancel_remaining_cla_fed0b7e6-5029-4b69-a2ba-840f62019aaa" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.cancel_remaining_cla_531f7fa0-a61a-40e5-9b59-1489184fcd3b')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["state","=","cancel"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Cancel Remaining Class Charges</field>
+  </record>
+  <record id="studio_customization.card_number_897f8953-1a3e-4bde-a745-310ea260763d" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.card_number_7df2be38-e010-48d1-bfcc-9fb901017b37')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="studio_customization.gift_cards_0aa7903e-0e7a-408c-8adf-e0e27f08cd1d"/>
+    <field name="name">Card Number</field>
+  </record>
+  <record id="studio_customization.clear_payment_method_09a0425a-6933-46be-8daa-3fc612c1ed4f" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.clear_payment_method_d291c380-31fa-401b-bf9b-44ce64fca95b')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["is_internal_transfer","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment__payment_type'), ref('studio_customization.location_payments_32dbae85-ae73-4e3e-9ddd-5521d2de7987')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Clear Payment Method on Location</field>
+  </record>
+  <record id="studio_customization.confirm_tickets_9c78615b-6ad2-468c-82dd-6bb895c0a277" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.confirm_tickets_430153aa-9825-4124-b3e1-ddfb7acfceb5')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;",["state","=","draft"],["sale_order_id.state","=","sale"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Confirm Tickets</field>
+  </record>
+  <record id="studio_customization.contact_name_creatio_a92c530f-b5d0-4cd9-8f07-b4c98584f9e0" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.contact_name_creatio_beb0e75c-5664-4b1c-8431-922bc26e6798')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('base.field_res_partner__phone'), ref('studio_customization.new_text_contact_99d8fe9e-2883-4a69-8cf2-fd7b66f2ca9b'), ref('studio_customization.new_text_contact_cb508603-5d7a-499a-990d-0b3094c532dd')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Contact Name Creation</field>
+  </record>
+  <record id="studio_customization.create_call_task_76d06b08-4f79-4a15-bcf1-dd9c73196467" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.create_call_task_ca7f37a4-c753-47bd-a985-5d491078c3e4')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["state","=","cancel"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Create Call Task</field>
+  </record>
+  <record id="studio_customization.create_linked_invoic_45b6235c-823b-4111-90f2-83699f35e373" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.create_linked_invoic_16098e52-0659-4084-9e3b-6025523b02ab')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["move_type","=","out_invoice"],["invoice_origin","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Create Linked Invoice</field>
+  </record>
+  <record id="studio_customization.create_next_backorde_f0893134-7b30-49c9-989f-8c5ae3439c72" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.create_next_backorde_9023c6dd-972f-416b-b0ae-eba2ccbfd9e2')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["location_dest_id.id","!=",5],["backorder_id","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Create Next Backorder</field>
+  </record>
+  <record id="studio_customization.default_accounts_ec2f170f-9044-4236-baf2-38dcc0e4071d" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.default_accounts_49350aee-9b39-4e7e-95a6-5b19f0f971f4')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('base.field_res_partner__name')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Default Accounts</field>
+  </record>
+  <record id="studio_customization.delete_over_under_fo_5758b2e8-76a7-48a8-8c0b-eb2825a53cad" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.delete_over_under_fo_5e6f372e-90fe-4b23-9930-c833aef8921c')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["account_id","=",429],["journal_id","!=",9]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="name">Delete Over Under for All but Cash</field>
+  </record>
+  <record id="studio_customization.firing_price_warning_04f29472-0be6-4373-b38f-ece41ebb01a6" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.firing_price_warning_155f8e2d-9ccb-4e32-83e0-fd1504098624')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["stage_id","=",5]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Firing Price Warning</field>
+  </record>
+  <record id="studio_customization.fix_dang_prefix_9efce1be-e084-47e6-8a66-42b33a202e27" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.fix_dang_prefix_4969fa57-cc83-4854-9746-851668263097')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Fix Dang Prefix</field>
+  </record>
+  <record id="studio_customization.fix_lines_in_auto_cr_87f88a9f-4215-4e21-9e59-2160ef35fc82" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.fix_lines_in_auto_cr_b65aa276-f098-437e-93e3-640f453c3dd9')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Fix Lines in Auto Created Back Order</field>
+  </record>
+  <record id="studio_customization.fix_second_half_of_i_b2ea41c4-8baf-410d-84d1-96a48dee4496" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.fix_second_half_of_i_36d6fca0-0237-4432-bb13-2db43a932360')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[("state", "=", "done")]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Fix Second Half of Interwarehouse</field>
+  </record>
+  <record id="studio_customization.gift_card_process_a3521f6d-c7bd-437b-9956-97fe9a5bf0b7" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.gift_card_process_ff8a7a6b-a983-4a05-a232-83ba4e26ea42')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["state","=","posted"],["journal_id","=",18]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Gift Card Process</field>
+  </record>
+  <record id="studio_customization.invoice_linked_sales_94d5d116-4648-4651-b5c6-27df277bf16f" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.invoice_linked_sales_46ada194-e99b-49c8-a97e-0e299cd519fe')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["invoice_ids","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Invoice Linked Sales Order</field>
+  </record>
+  <record id="studio_customization.invoice_will_calls_p_736c3827-7ef9-4b28-8441-b9a17133b73e" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.invoice_will_calls_p_4f4712ae-d069-4397-9e00-7ed4985a8812')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["picking_type_id","=","Orders Picked"],["state","=","done"]]</field>
+    <field name="filter_pre_domain">["&amp;",["state","=","assigned"],["picking_type_id","=","Orders Picked"]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Invoice Will Calls Picked Up</field>
+  </record>
+  <record id="studio_customization.merge_new_contact_on_e59314df-558f-4b32-b78b-6ebaf4bf73cc" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.merge_new_contact_on_cfed4562-523d-46eb-ab51-e6ee4d25fde0')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["user_ids","!=",False],["employee","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="base.model_res_users"/>
+    <field name="name">Try to Set to Existing Contact</field>
+  </record>
+  <record id="studio_customization.new_backorder_based__d5250833-fefe-4c79-b003-852836798fb3" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.new_backorder_based__dd31eb1f-dd25-426c-9f5f-a889d4cb5871')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["backorder_id","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">New Backorder Based off Move</field>
+  </record>
+  <record id="studio_customization.no_emails_b5a73a30-8bc4-4b79-b744-f9b23140cfbd" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.no_emails_54b2b903-c1ba-49fa-b94b-c77eed9a30cf')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="mail.model_mail_mail"/>
+    <field name="name">No Emails!!</field>
+  </record>
+  <record id="studio_customization.no_emails_ff6ed635-c29a-4c49-ab33-75b49cedffc9" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.no_emails_fefa299d-0fa9-4bd9-a44f-503a106349dc')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="mail.model_mail_mail"/>
+    <field name="name">No Emails!!</field>
+  </record>
+  <record id="studio_customization.on_cancel_return_goo_22ae8991-4aca-4f83-a8c8-660f8cfd10c2" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.on_cancel_return_goo_11f2fb95-a094-4caa-a950-e5b63a441ad7')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["state","=","cancel"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">On Cancel Return Goods</field>
+  </record>
+  <record id="studio_customization.on_create_payment_fr_50d151c6-3349-468c-9e80-9d4329f75a82" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.on_create_payment_fr_76b68b2d-1e92-475c-ae1a-862339a212c7')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["x_studio_payment_method","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">On Create Payment from Register</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_44c66c6a-255a-412f-8d31-6fc71e5508b5" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.payment_method_updat_d78d7269-410c-4933-a8f1-9f3e368a6e1f')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment_register__x_studio_payment_method')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Payment Method Update (Register Save)</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_7a9c4b89-9722-4a30-8c7e-934bc49ceeef" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.payment_method_updat_6af3b134-8419-4a8a-aef3-89dd23691f4a')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.front_facing_payment_9e5b2740-659f-4800-a00e-53b9b448e871')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Payment Method Update (Payment Save)</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_8f8ac919-d194-4599-b2bd-0bfa6fd37b27" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.payment_method_updat_b7da0755-998f-4527-92d3-46787291deba')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["is_internal_transfer","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.front_facing_payment_9e5b2740-659f-4800-a00e-53b9b448e871')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Payment Method Update (Payment Form)</field>
+  </record>
+  <record id="studio_customization.price_change_025c3ad4-2129-43ea-b4c9-4dfd9395b4e9" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.price_change_b206dfa6-7ed1-4784-b923-d97ecf307a4a')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Price Change</field>
+  </record>
+  <record id="studio_customization.product_change_17c0f603-6104-4889-a3bf-14bf2a7d6726" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.product_change_cb32cd3e-86c1-489f-9d45-39a090fc93bf')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order_line__product_id')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Product Change</field>
+  </record>
+  <record id="studio_customization.product_change_9f000941-9664-436c-b0e8-7ca8a3188d1c" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.product_change_2a620095-943c-4565-b525-16c65eb54271')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;","&amp;","&amp;",["product_id","!=",False],["product_uom_qty","!=",False],["product_uom_qty","!=",0],["product_id.categ_id.x_studio_force_multiple_on_sales","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order_line__product_uom_qty')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Force Quantity Check</field>
+  </record>
+  <record id="studio_customization.product_change_d50adf0f-18e8-4649-8a3a-b264ceacbdb1" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.product_change_d2029b12-32ac-43a8-be48-67090480f67f')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order_line__product_id')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Product Change</field>
+  </record>
+  <record id="studio_customization.reach_out_to_wait_li_74fbb867-c9de-4847-b797-ee196de8d7e9" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.reach_out_to_wait_li_2607ec7a-96c9-4711-9963-5deb414c6985')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["event_id.seats_available","&gt;=",1]]</field>
+    <field name="filter_pre_domain">[["event_id.seats_available","&lt;=",0]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Reach Out to Wait List Customer</field>
+  </record>
+  <record id="studio_customization.reach_out_to_wait_li_8111e191-3b93-429d-ab48-4aa85168f3e4" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.reach_out_to_wait_li_15261e97-91a3-43f8-8b8e-6af6a0d1303b')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="event.model_event_event"/>
+    <field name="name">Reach Out to Wait List Customer (Old)</field>
+  </record>
+  <record id="studio_customization.refresh_component_am_b6326777-0080-461b-9efb-93d43241f602" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.refresh_component_am_b8c75e31-ee59-4f46-8033-840108cf0292')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="studio_customization.proposed_batch_03c83941-2d0f-48e4-99bf-c3936cc3fd72"/>
+    <field name="name">Refresh Component Amount</field>
+  </record>
+  <record id="studio_customization.refresh_components_f0ec72ef-5b25-42e0-af4a-27908a6b1bda" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.refresh_components_5f8f8d3d-0225-4541-89e7-c8334ae94ad2')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="studio_customization.batch_sets_c7b48938-15ac-4a8a-8355-4b51aed55037"/>
+    <field name="name">Refresh Components</field>
+  </record>
+  <record id="studio_customization.remove_credit_card_o_497a89b4-3cf2-4dc4-bdf4-1354bf786536" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.remove_credit_card_o_f0cad901-3819-435d-ae62-562678abd836')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">["&amp;",["account_id","=",429],["journal_id.name","ilike","credit card"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="name">Remove Credit Card Over/Under</field>
+  </record>
+  <record id="studio_customization.remove_second_regist_d1f62a32-a903-4707-a6a5-b679aec42b8e" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.remove_second_regist_6b094d32-56f2-4ad0-9273-cb48d6f44a0a')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["event_ticket_id","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Remove Second Registration for Remainder</field>
+  </record>
+  <record id="studio_customization.set_journal_0d91b8ab-222b-4eb9-970b-0aa38fee6378" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.set_journal_632a2479-4c1c-429d-b6e0-4787d23396db')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Set Journal</field>
+  </record>
+  <record id="studio_customization.set_journal_based_on_08a19faa-dd35-4337-91af-dcf8bc41dbe8" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.execute_code_e7cbbb53-0504-47c9-b1dc-dc669ea12a2b')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[("state", "=", "sale")]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Set Journal Based on Delivery Method</field>
+  </record>
+  <record id="studio_customization.set_minimum_to_1_b38d5e25-062f-4ffc-b703-a8977e084bb5" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.execute_code_4b19810a-edd5-4907-9086-5e063cbbcd00')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('sale.field_sale_order_line__product_id')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Set Minimum to 1</field>
+  </record>
+  <record id="studio_customization.set_transfer_number_5851bf34-462d-4156-9e07-bc4289873fbb" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.set_transfer_number_d9bc5c05-c05d-498a-9171-9c5699cd1e65')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="studio_customization.inter_warehouse_tran_080ce3c2-fcdc-4e63-88e5-51db38763cbb"/>
+    <field name="name">Set Transfer Number</field>
+  </record>
+  <record id="studio_customization.stop_shipment_valida_5e1fa013-f5fd-42e7-895f-84d35159c30b" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.stop_shipment_valida_7b8bc861-dc23-47d3-8bd0-1a732ceadb88')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;",["state","=","done"],["x_studio_cancel_order_transfer","=",False]]</field>
+    <field name="filter_pre_domain">[["x_studio_require_price_set","=",True]]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Stop Shipment Validation without Price</field>
+  </record>
+  <record id="studio_customization.subtotal_override_499792fe-2b5e-4d0c-944b-ad4566b300f6" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.subtotal_override_f40a7851-925d-4f87-93e2-e98c9914ab89')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_move__invoice_line_ids')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Subtotal Override</field>
+  </record>
+  <record id="studio_customization.try_to_set_existing__0ab5628d-bde3-47af-8eef-3f9e4552b7c0" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.try_to_set_existing__296524c4-349e-455a-82a2-a0c828da7393')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["groups_id.id","=",8]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="base.model_res_users"/>
+    <field name="name">Try to Set Existing Contact</field>
+  </record>
+  <record id="studio_customization.update_gift_card_app_ed7271c0-bff4-4160-b330-872b66604595" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_gift_card_app_cabe3488-3391-494c-9d69-be9d7758db7e')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Update Gift Card App on Purchase</field>
+  </record>
+  <record id="studio_customization.update_gift_card_val_2505153d-3310-4e01-ac7c-ac5821d9e97f" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_gift_card_val_be4bf46d-1eac-4cfa-bd2f-c83a98457c4c')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["product_id.name","ilike","Gift Card (Transferrable)"]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Update Gift Card Value and Purchaser</field>
+  </record>
+  <record id="studio_customization.update_journal_based_55b92f00-8370-4b04-8104-f9b6ff31be1c" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_journal_based_c8871ed3-97d5-4fbc-99d7-62e39e35a7ad')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain">[["invoice_origin","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Update Journal Based on Shipping Method</field>
+  </record>
+  <record id="studio_customization.update_journal_c7f8880e-7b75-478d-ba77-2e8ced4ddab0" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_journal_df50ea8b-47ae-4c6a-b36d-cce8e3ed443a')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[["is_internal_transfer","=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.payment_methods_to_j_093abc98-a716-4e04-82e8-f626547a84a3')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Journal</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_099d2788-cbfc-4388-83fc-8d58d874af4c" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_loyalty_point_92ff174f-2f83-42ad-9ab9-4d44d7ddbd64')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;","&amp;",["journal_id.name","ilike","Gift Card"],["state","=","posted"],["x_studio_gift_card_calculated","=",False]]</field>
+    <field name="filter_pre_domain">[]</field>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points on Gift Card Payment</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_363c8c0d-4aef-4889-80d1-630fc1f38b78" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_loyalty_point_cbe51394-5874-48bd-857d-e82e7d2a225b')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment__journal_id'), ref('account.field_account_payment__partner_id'), ref('account.field_account_payment__state')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_ab55305c-2ee0-44af-9c57-2fc647d3343d" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_loyalty_point_9134abb0-ada8-480d-ae0a-109c784b00e8')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('account.field_account_payment__journal_id'), ref('account.field_account_payment__partner_id'), ref('account.field_account_payment__state')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points</field>
+  </record>
+  <record id="studio_customization.update_name_a4921f85-82c5-452f-8499-670e5c0fb8aa" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_name_37ec3f3f-2527-46a6-9ffe-35e94d1f6782')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('product.field_product_template__default_code')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Update Name</field>
+  </record>
+  <record id="studio_customization.update_other_transfe_070cdaac-a504-4a0f-9bf4-83b819a88e2c" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_other_transfe_7e6c9e12-e418-4fbb-af97-481e8147d8fa')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">["&amp;",["state","=","done"],["x_studio_inter_warehouse_transfer","!=",False]]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Update Other Transfer on Interwarehouse</field>
+  </record>
+  <record id="studio_customization.update_payment_amoun_bcac94fe-b996-4985-a199-9006a55f9f34" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_payment_amoun_c26c9387-e2df-478a-b1ee-3219c80fde9b')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.front_facing_payment_9e5b2740-659f-4800-a00e-53b9b448e871')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">hour</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Card Fees for Register Payment</field>
+  </record>
+  <record id="studio_customization.update_price_on_sale_2933ef6e-8402-41de-bdee-478a7d499d2e" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_price_on_sale_b77b0caa-688b-4626-aefb-84055177169a')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain">[("stage_id", "=", 5)]</field>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type" eval="False"/>
+    <field name="trigger">on_create_or_write</field>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Update Price on Sales Order and Create Invoice</field>
+  </record>
+  <record id="studio_customization.update_warehouse_for_e84a5da1-4ad5-410b-81a6-eca1126af9db" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_warehouse_for_0da34e0c-da8b-4c30-8a1a-7f744cc57a01')])]"/>
+    <field name="active" eval="False"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.warehouse_sales_orde_ec235f2f-bf6e-4c50-8632-df0c501d4535')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Update Warehouse for Will Call</field>
+  </record>
+  <record id="studio_customization.update_will_call_b412e65a-c1b9-494d-be54-7e3ac0232080" model="base.automation" context="{'studio': True}">
+    <field name="action_server_ids" eval="[(6, 0, [ref('studio_customization.update_will_call_ee15d379-64b2-4323-a678-b95dfa668cd0')])]"/>
+    <field name="active" eval="True"/>
+    <field name="filter_domain" eval="False"/>
+    <field name="filter_pre_domain" eval="False"/>
+    <field name="last_run" eval="False"/>
+    <field name="on_change_field_ids" eval="[(6, 0, [ref('studio_customization.warehouse_sales_orde_ec235f2f-bf6e-4c50-8632-df0c501d4535')])]"/>
+    <field name="trg_date_id" eval="False"/>
+    <field name="trg_date_range" eval="False"/>
+    <field name="trg_date_range_type">day</field>
+    <field name="trigger">on_change</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Update Will Call</field>
+  </record>
+</odoo>

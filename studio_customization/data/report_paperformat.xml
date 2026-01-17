@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="base.paperformat_us" model="report.paperformat" context="{'studio': True}">
+    <field name="name">US Letter</field>
+    <field name="margin_left">1.0</field>
+    <field name="display_name">US Letter</field>
+    <field name="header_spacing">35</field>
+    <field name="margin_top">40.0</field>
+    <field name="margin_bottom">25.0</field>
+    <field name="disable_shrinking" eval="False"/>
+    <field name="print_page_width">215.9</field>
+    <field name="orientation">Portrait</field>
+    <field name="header_line" eval="False"/>
+    <field name="format">Letter</field>
+    <field name="margin_right">1.0</field>
+    <field name="page_height" eval="False"/>
+    <field name="default" eval="True"/>
+    <field name="page_width" eval="False"/>
+    <field name="print_page_height">279.4</field>
+    <field name="dpi">90</field>
+  </record>
+  <record id="studio_customization.gift_card_f801dd16-1b68-40ca-a405-a8f2c186fa09" model="report.paperformat" context="{'studio': True}">
+    <field name="name">Gift Card</field>
+    <field name="margin_left">7.0</field>
+    <field name="display_name">Gift Card</field>
+    <field name="header_spacing" eval="False"/>
+    <field name="margin_top" eval="False"/>
+    <field name="margin_bottom" eval="False"/>
+    <field name="disable_shrinking" eval="False"/>
+    <field name="print_page_width">216.0</field>
+    <field name="orientation">Portrait</field>
+    <field name="header_line" eval="False"/>
+    <field name="format">custom</field>
+    <field name="margin_right">7.0</field>
+    <field name="page_height">70</field>
+    <field name="default" eval="False"/>
+    <field name="page_width">216</field>
+    <field name="print_page_height">70.0</field>
+    <field name="dpi">90</field>
+  </record>
+  <record id="studio_customization.us_letter_landscape__2cc20520-1008-4864-8773-694487317d10" model="report.paperformat" context="{'studio': True}">
+    <field name="name">US Letter (Landscape Internal)</field>
+    <field name="margin_left">10.0</field>
+    <field name="display_name">US Letter (Landscape Internal)</field>
+    <field name="header_spacing">10</field>
+    <field name="margin_top">10.0</field>
+    <field name="margin_bottom">10.0</field>
+    <field name="disable_shrinking" eval="False"/>
+    <field name="print_page_width">279.4</field>
+    <field name="orientation">Landscape</field>
+    <field name="header_line" eval="False"/>
+    <field name="format">Letter</field>
+    <field name="margin_right">10.0</field>
+    <field name="page_height" eval="False"/>
+    <field name="default" eval="True"/>
+    <field name="page_width" eval="False"/>
+    <field name="print_page_height">215.9</field>
+    <field name="dpi">90</field>
+  </record>
+</odoo>

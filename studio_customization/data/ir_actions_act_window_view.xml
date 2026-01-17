@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="studio_customization.account_invoice_tree_6d6d7212-16a7-469f-9ceb-85f9b0f1d59e" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.action_move_out_invoice_type"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence" eval="False"/>
+    <field name="view_id" ref="account.view_invoice_tree"/>
+    <field name="view_mode">tree</field>
+  </record>
+  <record id="studio_customization.account_journal_dash_ff64ba3d-3a73-4176-9d2c-4b9ddfbfde0e" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.open_account_journal_dashboard_kanban"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence" eval="False"/>
+    <field name="view_id" ref="account.account_journal_dashboard_kanban_view"/>
+    <field name="view_mode">kanban</field>
+  </record>
+  <record id="studio_customization.false_0e6a216f-c5b2-47b6-a8c9-51b0f0297998" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.open_account_journal_dashboard_kanban"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">1</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="studio_customization.false_26fc3554-165d-4be2-903b-07c55c81ba68" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.action_move_out_invoice_type"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">3</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">pivot</field>
+  </record>
+  <record id="studio_customization.false_3cb45087-b973-49e1-8dfd-7d3eefb2c4cc" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="sale.product_template_action"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence" eval="False"/>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">tree</field>
+  </record>
+  <record id="studio_customization.false_5d3a17e3-1a25-4919-b85b-09306eb11cd0" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="sale.product_template_action"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">2</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="studio_customization.false_a4a84ded-7cab-417f-b265-1faf606ccf59" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="project.open_view_project_all"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">2</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">tree</field>
+  </record>
+  <record id="studio_customization.false_bf18e8b8-7075-4c78-888e-3f6b7eebe426" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.action_move_out_invoice_type"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">1</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">kanban</field>
+  </record>
+  <record id="studio_customization.false_dd3382f3-e3af-440e-9a7d-906e274d7731" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="account.action_move_out_invoice_type"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">2</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="studio_customization.false_e54031f0-3223-4b66-994d-3e638ce9ad6e" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="project.open_view_project_all"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">1</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">form</field>
+  </record>
+  <record id="studio_customization.false_eebdc25b-6320-4c5a-bf38-0a2491989cef" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="sale.product_template_action"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">3</field>
+    <field name="view_id" eval="False"/>
+    <field name="view_mode">activity</field>
+  </record>
+  <record id="studio_customization.product_template_pro_99c99f8e-4316-42bd-b8d7-ffdc32f76659" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="sale.product_template_action"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence">1</field>
+    <field name="view_id" ref="product.product_template_kanban_view"/>
+    <field name="view_mode">kanban</field>
+  </record>
+  <record id="studio_customization.project_project_kanb_4eaa31aa-8829-4341-ab01-18858d9f10af" model="ir.actions.act_window.view" context="{'studio': True}">
+    <field name="act_window_id" ref="project.open_view_project_all"/>
+    <field name="multi" eval="False"/>
+    <field name="sequence" eval="False"/>
+    <field name="view_id" ref="project.view_project_kanban"/>
+    <field name="view_mode">kanban</field>
+  </record>
+</odoo>

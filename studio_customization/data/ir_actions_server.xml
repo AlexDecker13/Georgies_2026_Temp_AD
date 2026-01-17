@@ -1,0 +1,1996 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record id="studio_customization.add_all_child_produc_41011337-4daa-4f0f-870a-c04e722b3df5" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[cnt=0
+for lne in record.product_id.x_studio_child_products:
+  cnt+=1
+  # if 'PG650T' in lne.name:
+  #   raise UserError(lne.id)
+  
+  #Find product variant
+  var=env['product.product'].search([('product_tmpl_id','=',lne.id)],limit=1)
+  newbyproduct=env['mrp.bom.byproduct'].create({
+        'product_id': var.id,
+        'product_uom_id':var.uom_id.id,
+        'product_qty':0
+    })
+ 
+  
+    
+  newstockmove=env['stock.move'].create({
+        'production_id': record.id,
+        'product_id': var.id,
+        'name':var.name,
+        'picking_type_id':17,
+        'location_id':15,
+        'product_uom':var.uom_id.id,
+        'location_dest_id':76,
+        'byproduct_id':newbyproduct.id,
+        'product_uom_qty':1
+      })
+  # except:
+  #   continue
+# #     raise UserError(lne.uom_id.category_id.name)
+#   sqlstr="""INSERT INTO stock_move (procure_method,company_id,date,production_id, product_id, name, picking_type_id,location_id,product_uom,location_dest_id,byproduct_id,product_uom_qty)
+# VALUES ('make_to_stock',1,'"""+str(datetime.datetime.now())+"""',"""+str(record.id)+""","""+str(lne.id)+""",'"""+lne.name+"""',17,15,"""+str(lne.uom_id.id)+""",76,"""+str(newbyproduct.id)+""",1);"""
+#   env.cr.execute(sqlstr)
+  
+  
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="mrp.model_mrp_production"/>
+    <field name="name">Add All Child Products</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_components_3a705787-95b9-426e-9f12-302f007cf207" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#Remove old components
+env.cr.execute("""DELETE FROM x_set_group_components WHERE x_studio_batch_set_group="""+str(record.id))
+#Add all components
+for btchset in record.x_studio_proposed_batches:
+  for lne in btchset.x_studio_product.bom_ids.bom_line_ids:
+    existline=env['x_set_group_components'].search([('x_studio_batch_set_group','=',record.id),('x_studio_product','=',lne.product_id.id)],limit=1)
+    if len(existline)<1:
+      existline=env['x_set_group_components'].create({
+        'x_studio_product':lne.product_id.id,
+        'x_studio_batch_set_group':record.id
+        })
+    existline['x_studio_quantity']+=lne.product_qty*btchset.x_studio_batch_quantity
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.batch_set_groups_9f50ce63-b8c5-42c1-8b7f-3800b5b1cc32"/>
+    <field name="name">Add Components</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_credit_card_info_9afa621a-60c7-4c0f-9840-5d20515e13ee" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[salesorders = env['sale.order'].search([("name","=",record.invoice_origin)])
+
+for salesorder in salesorders:
+  env.cr.execute("""UPDATE sale_order SET x_studio_card_number='"""+str(salesorder.x_studio_card_number)+"""' WHERE id="""+str(salesorder.id))
+  env.cr.execute("""UPDATE sale_order SET x_studio_cvv='"""+str(salesorder.x_studio_cvv_1)+"""' WHERE id="""+str(salesorder.id))
+  env.cr.execute("""UPDATE sale_order SET x_studio_expiration_date='"""+str(salesorder.x_studio_expiration_date)+"""' WHERE id="""+str(salesorder.id))
+  
+
+  
+  
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Add Credit Card Info</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_link_for_sales_o_bbe9edef-a01e-4744-89ca-36df2078a31a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.origin:
+  orderid = env['sale.order'].search([("name","=",record.origin)])
+  if orderid:
+    env.cr.execute("""UPDATE stock_picking SET x_studio_salesorder="""+str(orderid.id)+""" WHERE id="""+str(record.id))
+
+  
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Add Link for Sales Order</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_name_89f80596-cd8b-432b-8a5e-f033b54a2a2a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_name']=record.x_studio_product.name+' '+str(record.create_date.date())
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.batch_sets_c7b48938-15ac-4a8a-8355-4b51aed55037"/>
+    <field name="name">Add Name</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_shipping_and_cre_62091b36-78a7-4989-8021-2717719f7dc0" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#raise UserError('Yes')
+orderlines = record.x_studio_salesorder.order_line
+# new_lines = []
+# new_lines.append((0, 0, {
+#   'name' : record.x_studio_shippingfreight_type.x_studio_product.name,
+#   'product_id' : record.x_studio_shippingfreight_type.x_studio_product.id,
+#   'product_uom_qty' : 1,
+#   'qty_delivered' : 1,
+#   'price_unit': record.x_studio_shipping_cost
+# }))
+if record.sale_id:
+    env['sale.order.line'].create({
+      'name' : record.x_studio_shippingfreight_type.x_studio_product.name,
+      'product_id' : record.x_studio_shippingfreight_type.x_studio_product.id,
+      'product_uom_qty' : 1,
+      'qty_delivered' : 1,
+      'price_unit': record.x_studio_shipping_cost,
+      'order_id':record.sale_id.id
+      })
+    
+    if record.sale_id.amount_total<50 and record.picking_type_id.x_studio_charge_handling:
+    #   new_lines.append((0, 0, {
+    #   'name' : 'Handling Charges',
+    #   'product_id' : 44046,
+    #   'product_uom_qty' : 1,
+    #   'qty_delivered' : 1
+    # }))
+        env['sale.order.line'].create({
+      'name' : 'Handling Charges',
+      'product_id' : 44046,
+      'product_uom_qty' : 1,
+      'qty_delivered' : 1,
+      'order_id':record.sale_id.id
+      })
+    #raise UserError(len(new_lines))
+    # record.x_studio_salesorder.write({ 'order_line' : new_lines })
+    #record.x_studio_salesorder._create_invoices()
+    #salename = record.x_studio_salesorder.name
+    #invoicerecords = env['account.move'].search([("invoice_origin","=",salename)])
+    #for invoicerecord in invoicerecords:
+     # invoicerecord.post()
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Add Shipping on Price Add</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_a4efc036-c423-449f-888a-7d4dec34e36a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+new_record = env["project.task"].create({"name": str(record.order_id.name) + ":Firing Request", "project_id": 4})
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_9e1c19ba-7d0d-48b3-afc0-5db3004f26c3" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#self.env['project.task'].create({project_id = 4, name = 'Firing'})
+            
+
+
+
+]]></field>
+    <field name="crud_model_id" ref="project.model_project_task"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS Parent Python</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_e4db7004-78ff-4d87-be1f-4e11cf9e5666" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+new_record = env["project.task"].create({"name": 'Firing', "project_id": 4})
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Add Task for PoS Parent</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_task_for_pos_par_ef0cd184-d112-4776-98f3-56a8ff29713e" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+new_record = env["project.task"].create({"name": 'Firing', "project_id": 4, "partner_id": record.partner_id.id})
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order"/>
+    <field name="name">Add Task for PoS Parent</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.add_zip_bc08327b-31e9-4246-9e46-9034b6dea092" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[newstate=env['x_zip_to_state'].search([('x_name','=',record.zip)],limit=1)
+if newstate:
+  record['state_id']=newstate.x_studio_state.id
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Add Zip</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.adding_linked_produc_ab25bf76-118c-417b-b5be-317724d99562" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for rec in record.order_line:
+  
+  if rec.product_id.x_studio_linked_product:
+    if rec.x_studio_linkedproductadded==False:
+      rec['x_studio_linkedproductadded'] = True
+      new_lines = []
+      new_lines.append((0, 0, {
+        'name' : rec.product_id.x_studio_linked_product.name,
+        'product_id' : rec.product_id.x_studio_linked_product.id,
+        'product_uom_qty' : rec.product_uom_qty,
+        'qty_delivered' : rec.product_uom_qty,
+        'price_unit' : rec.product_id.x_studio_linked_product.list_price,
+        'event_id' : rec.event_id.id,
+        'product_uom' : rec.product_uom.id,
+        'name':rec.name.replace("Registration","Registration remainder")
+      }))
+      env['sale.order'].create({'partner_id': record.partner_id.id,
+      'pricelist_id': record.pricelist_id.id,
+      'x_studio_linked_sales_order' : record.name,
+      'order_line': new_lines,
+      'x_studio_will_call_location':record.x_studio_will_call_location.id
+        
+      })
+#record._onchange_currency()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Adding Linked Products</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.adding_linked_produc_f6f1118f-f26a-4edf-beb5-44b194843a33" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for rec in record.order_line:
+  
+  if rec.product_id.x_studio_linked_product:
+    
+    qty= rec.product_uom_qty
+    prodid = rec.product_id.x_studio_linked_product.id
+    
+    for rac in record.order_line:
+      if rac.product_id.id==prodid:
+        rac['product_uom_qty']=qty
+      
+#record._onchange_currency()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Change Qty on Linked Product</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.amount_changed_0ef17fea-7ce0-4292-b3b0-4180920fa605" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['amount']=record.x_actualamount
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Amount Changed</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.amount_changed_ec0d4b0d-37f1-4d54-a333-e7415e89dcb4" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_actualamount']=record.amount
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Amount Changed</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.auto_populate_reserv_5c7ae679-9496-487e-8c25-c83bd7b133ec" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#raise UserError('Triggered.')
+record['qty_done']=record.product_uom_qty
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_move_line"/>
+    <field name="name">Auto Populate Reserved Quantity</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.autopopulate_compone_544bb713-fe23-4180-adc5-895b0f4060bb" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.action_assign()
+record['qty_producing']=record.product_qty
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="mrp.model_mrp_production"/>
+    <field name="name">Set on Confirm</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.cancel_remaining_cla_531f7fa0-a61a-40e5-9b59-1489184fcd3b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for lne in record.x_studio_invoices_1:
+  if lne.x_studio_invoice_status=='Unpaid':
+    lne.order_id.action_cancel()
+    for invoice in lne.order_id.invoice_ids:
+      invoice.button_cancel()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Cancel Remaining Class Charges</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.card_number_7df2be38-e010-48d1-bfcc-9fb901017b37" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_studio_card_number']=record.env['ir.sequence'].next_by_code('gift.card')
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.gift_cards_0aa7903e-0e7a-408c-8adf-e0e27f08cd1d"/>
+    <field name="name">Card Number</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.clear_payment_method_d291c380-31fa-401b-bf9b-44ce64fca95b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_studio_payment_method']=False
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Clear Payment Method on Location</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.confirm_tickets_430153aa-9825-4124-b3e1-ddfb7acfceb5" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.action_confirm()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Confirm Tickets</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.contact_name_creatio_beb0e75c-5664-4b1c-8431-922bc26e6798" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.x_studio_customer_name:
+  if record.x_studio_vendor:
+    record['name'] = "(" + str(record.x_studio_vendor) +") "  + str(record.x_studio_customer_name)
+    
+  else:
+    if record.phone:
+      strng = ""
+      for s in record.phone:
+        if s.isdigit():
+          strng = strng + s
+      if len(strng) ==11:
+        strng=strng[1:11]
+      record['name'] = "[" + str(strng) +"] "  + str(record.x_studio_customer_name)
+      
+
+      
+      
+      
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Contact Name Creation</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.create_call_task_ca7f37a4-c753-47bd-a985-5d491078c3e4" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.event_id.x_studio_seats_left==1:
+  env['project.task'].create({
+  'name' : "Contact Wait List Customer",
+  'description' : "Please contact the next person on the wait list for " + record.event_id.name + ".",
+  'user_id' : record.event_id.x_studio_wait_list_follow_up_user.id,
+  'x_studio_wait_list_event' : record.event_id.id
+})
+
+
+]]></field>
+    <field name="crud_model_id" ref="project.model_project_task"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Create Call Task</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.create_linked_invoic_16098e52-0659-4084-9e3b-6025523b02ab" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[orders=env['sale.order'].search([("x_studio_linked_sales_order","=",record.invoice_origin)])
+if orders:
+  for order in orders:
+    order['state']="done"
+    order._create_invoices()
+    salename = order.name
+    invoicerecords = env['account.move'].search([("invoice_origin","=",salename)])
+    for invoicerecord in invoicerecords:
+      invoicerecord.action_post()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Create Linked Invoice</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.create_next_backorde_9023c6dd-972f-416b-b0ae-eba2ccbfd9e2" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[raise UserError(len(record.move_line_ids_without_package))
+nextsteps = env['stock.picking'].search([("picking_type_id","!=",record.picking_type_id.id),("origin","=",record.origin)])
+for nextstep in nextsteps:
+  newtran = record.copy({'partner_id': nextstep.partner_id.id,'picking_type_id': nextstep.picking_type_id.id,'backorder_id': nextstep.id,'location_id': nextstep.location_id.id,'location_dest_id': nextstep.location_dest_id.id,'x_studio_auto_created': True})
+  newtran['move_line_ids_without_package']=record.move_line_ids_without_package
+  newtran['state'] = 'confirmed'
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Create Next Backorder</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.default_accounts_49350aee-9b39-4e7e-95a6-5b19f0f971f4" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record['property_account_receivable_id'] == False:
+  record['property_account_receivable_id'] = 299
+
+if record['property_account_payable_id'] == False:
+  record['property_account_payable_id'] = 305
+  
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="name">Default Accounts</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.delete_over_under_fo_5e6f372e-90fe-4b23-9930-c833aef8921c" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for lne in record.move_id.line_ids:
+  env.cr.execute("""DELETE FROM account_partial_reconcile WHERE debit_move_id="""+str(lne.id))
+  env.cr.execute("""DELETE FROM account_partial_reconcile WHERE credit_move_id="""+str(lne.id))
+  env.cr.execute("""DELETE FROM account_move_line WHERE id="""+str(lne.id))
+env.cr.execute("""DELETE FROM account_move WHERE id="""+str(record.move_id.id))
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="name">Delete Over Under for All but Cash</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.execute_code_4b19810a-edd5-4907-9086-5e063cbbcd00" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.product_uom_qty==0:
+    record['product_uom_qty']=1
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.execute_code_5abc90bb-a150-4199-91c6-159f5be696b9" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[env['x_woocommerce_orders_l'].create({
+  'x_name':'New Woocommerce Order',
+  'x_json':payload,
+  'x_studio_woocommerce_status':payload['status']
+    })]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.woocommerce_orders_l_4775cba3-96df-4ee4-a12f-eda82b23000c"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.execute_code_e7cbbb53-0504-47c9-b1dc-dc669ea12a2b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#raise UserError('Triggered')
+record['journal_id']=record.x_studio_will_call_location.x_studio_journal.id
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.execute_code_fa4784b3-90fa-4c7b-b772-fabe011e9a24" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+cats = rec.public_categ_ids
+all_cats = cats
+while True:
+    parents = all_cats.mapped('parent_id') - all_cats
+    if not parents:
+        break
+    all_cats |= parents
+
+missing = all_cats - cats
+if missing:
+    rec.write({'public_categ_ids': [(4, c.id) for c in missing]})]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.firing_price_warning_155f8e2d-9ccb-4e32-83e0-fd1504098624" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.x_studio_firingprice == 0:
+  raise UserError('Please set the price for firing.')
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Firing Price Warning</field>
+    <field name="sequence">7</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.firing_price_warning_66dcf6f4-5d77-4a0e-83b3-4498f90c6bb8" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.x_studio_firingprice == 0:
+  raise UserError('Please set the price for firing.')
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Firing Price Warning</field>
+    <field name="sequence">7</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.fix_dang_prefix_4969fa57-cc83-4854-9746-851668263097" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.move_id['sequence_prefix']='poop'
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Fix Dang Prefix</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.fix_lines_in_auto_cr_b65aa276-f098-437e-93e3-640f453c3dd9" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for rec in record.move_ids_without_package:
+  for lne in record.backorder_id.backorder_id.move_ids_without_package:
+    if lne.product_id==rec.product_id:
+      rec['product_uom_qty']=lne.product_uom_qty-lne.quantity_done
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Fix Lines in Auto Created Back Order</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.fix_second_half_of_i_36d6fca0-0237-4432-bb13-2db43a932360" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[othertransfer=env['stock.picking'].search([('x_studio_inter_warehouse_transfer','=',record.x_studio_inter_warehouse_transfer.id),('id','!=',record.id)],limit=1)
+#raise UserError(len(othertransfer))
+#Clear old lines
+env.cr.execute("""DELETE FROM stock_move_line WHERE picking_id="""+str(othertransfer.id))
+env.cr.execute("""DELETE FROM stock_move WHERE picking_id="""+str(othertransfer.id))
+#raise UserError('Move lines '+str(len(record.move_line_ids)))
+#Rebuild Other Transfer
+for lne in record.move_line_ids:
+  env['stock.move'].create({
+    'product_id' : lne.product_id.id,
+      'product_uom_qty' : lne.quantity,
+      'location_dest_id': othertransfer.location_dest_id.id,
+      'location_id': othertransfer.location_id.id,
+      'procure_method':'make_to_stock',
+      'product_uom':lne.product_uom_id.id,
+      'picking_id':othertransfer.id,
+      'name':'Testing'
+    })
+othertransfer.action_confirm()
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.gift_card_process_ff8a7a6b-a983-4a05-a232-83ba4e26ea42" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.amount <= record.partner_id.loyalty_points/100:
+  record.partner_id['loyalty_points']=record.partner_id.loyalty_points-record.x_studio_loyalty_points
+else:
+  raise UserError("The customer doesn't have enough points for this transaction." + "They have " + str(record.partner_id.loyalty_points/100) + " and they need " +str(record.amount))
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Gift Card Process</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.invoice_linked_sales_46ada194-e99b-49c8-a97e-0e299cd519fe" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[raise UserError("Triggered")
+orders=env['sale.order.line'].search([("x_studio_linked_line","=",record.id)])
+if orders:
+  for order in orders:
+    order.order_id['state']="done"
+    order.order_id._create_invoices()
+    salename = order.order_id.name
+    invoicerecords = env['account.move'].search([("invoice_origin","=",salename)])
+    for invoicerecord in invoicerecords:
+      invoicerecord.post()
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Invoice Linked Sales Order</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.invoice_will_calls_p_4f4712ae-d069-4397-9e00-7ed4985a8812" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+salename = record.origin
+
+saletrans = env['sale.order'].search([("name","=",salename)])
+
+for saletran in saletrans:
+  saletran['state'] = "done"
+  saletran._create_invoices()
+invoicerecords = env['account.move'].search([("invoice_origin","=",salename)])
+for invoicerecord in invoicerecords:
+  invoicerecord.action_post()
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Invoice Will Calls Picked Up</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.merge_new_contact_on_cfed4562-523d-46eb-ab51-e6ee4d25fde0" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[existcontact=env['res.partner'].search([('email','=',record.partner_id.email)],limit=1)
+if existcontact:
+  record['partner_id']=existcontact.id
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="base.model_res_users"/>
+    <field name="name">Try to Set to Existing Contact</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.new_backorder_based__dd31eb1f-dd25-426c-9f5f-a889d4cb5871" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[nextsteps = env['stock.picking'].search([("picking_type_id","!=",record.picking_type_id.id),("origin","=",record.origin),("backorder_id","=",False)])
+
+for nextstep in nextsteps:
+  newtran = nextstep.copy()
+  newtran.update({'x_studio_auto_created': True, 'backorder_id': record.id,'move_line_ids_without_package': record.move_line_ids_without_package})
+  firstorder = env['stock.picking'].search([("picking_type_id","=",record.picking_type_id.id),("origin","=",record.origin),("backorder_id","!=",False)])
+  for rec in firstorder:
+    sourcerecordid = rec.id
+  
+  
+  newtran['state'] = 'confirmed'
+  
+  
+  
+  
+  for lne in nextstep.move_ids_without_package:
+    lne['product_uom_qty']=lne.reserved_availability
+    lne['quantity_done']=0
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">New Backorder Based off Move</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.no_emails_54b2b903-c1ba-49fa-b94b-c77eed9a30cf" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.unlink()]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="mail.model_mail_mail"/>
+    <field name="name">No Emails!!</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.no_emails_fefa299d-0fa9-4bd9-a44f-503a106349dc" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.unlink()
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="mail.model_mail_mail"/>
+    <field name="name">No Emails!!</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.on_cancel_return_goo_11f2fb95-a094-4caa-a950-e5b63a441ad7" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#Find transfers
+
+
+if record.procurement_group_id:
+  transfers=env['stock.picking'].search([('group_id','=',record.procurement_group_id.id)])
+  for transfer in transfers:
+    
+    if transfer.state=='done':
+      #Create stock moves
+      newmoves=[]
+      newmovelines=[]
+      for stockmove in transfer.move_lines:
+        if stockmove.product_uom.category_id.id !=  stockmove.product_id.uom_id.category_id.id:
+          uom=stockmove.product_id.uom_id.id
+        else:
+          uom=stockmove.product_uom.id
+        newmoves.append((0, 0, {
+          'company_id' : stockmove.company_id.id,
+          'date' : datetime.date.today(),
+          'location_dest_id' : stockmove.location_id.id,
+          'location_id' : stockmove.location_dest_id.id,
+          'name':stockmove.name,
+          'product_id':stockmove.product_id.id,
+          'product_uom':uom,
+          'product_uom_qty':stockmove.quantity_done
+        }))
+        
+        
+      newtransfer=env['stock.picking'].create({
+        'location_dest_id': transfer.location_id.id,
+        'location_id': transfer.location_dest_id.id,
+        'move_type':transfer.move_type,
+        'picking_type_id':transfer.picking_type_id.id,
+        'move_lines':newmoves,
+        'sale_id':record.id,
+        'x_studio_cancel_order_transfer':True
+    })
+      newtransfer.action_assign()
+      for move in newtransfer.move_lines:
+        if move.product_uom.category_id.id !=  move.product_id.uom_id.category_id.id:
+          uom=move.product_id.uom_id.id
+        else:
+          uom=move.product_uom.id
+        env['stock.move.line'].create({
+          'company_id' : move.company_id.id,
+          'date' : datetime.date.today(),
+          'location_dest_id' : move.location_id.id,
+          'location_id' : move.location_dest_id.id,
+          'product_id':move.product_id.id,
+          'product_uom_id':uom,
+          'qty_done':move.product_uom_qty,
+          'picking_id':newtransfer.id,
+          'move_id':move.id
+        })
+      newtransfer.button_validate()
+      
+    else:
+      transfer.action_cancel()
+        
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">On Cancel Return Goods</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.on_create_payment_fr_76b68b2d-1e92-475c-ae1a-862339a212c7" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[recs=env['account.payment.register'].search([(1,'=',1)])
+for rec in recs:
+  record['x_studio_payment_method']=rec.x_studio_payment_method.id
+  record['x_studio_location']=rec.x_studio_location.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">On Create Payment from Register</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_48253344-baba-41dc-8c61-f6a0f3c6991b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id']=record.x_studio_payment_method.x_studio_payment_journal.id
+record['payment_method_id']=record.x_studio_payment_method.x_studio_payment_method.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Payment Method Update</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_6af3b134-8419-4a8a-aef3-89dd23691f4a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id']=record.x_studio_payment_method.x_studio_payment_journal.id
+record['payment_method_id']=record.x_studio_payment_method.x_studio_payment_method.id
+
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Payment Method Update (Payment Save)</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_b7da0755-998f-4527-92d3-46787291deba" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id']=record.x_studio_payment_method.x_studio_payment_journal.id
+record['payment_method_id']=record.x_studio_payment_method.x_studio_payment_method.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Payment Method Update (Payment Form)</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_c08d4ab7-b55d-43fd-9cc9-06e067162d61" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id']=record.x_studio_payment_method.x_studio_payment_journal.id
+record['payment_method_id']=record.x_studio_payment_method.x_studio_payment_method.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Payment Method Update</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.payment_method_updat_d78d7269-410c-4933-a8f1-9f3e368a6e1f" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id']=record.x_studio_payment_method.x_studio_payment_journal.id
+record['payment_method_line_id']=record.x_studio_payment_method.x_studio_payment_method_line.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Payment Method Update (Register Save)</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.price_change_b206dfa6-7ed1-4784-b923-d97ecf307a4a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_studio_sales_price']=record.list_price
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.product_change_2a620095-943c-4565-b525-16c65eb54271" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.product_id.categ_id.x_studio_force_multiple_on_sales != 1 and record.product_id.categ_id.x_studio_force_multiple_on_sales != 0:
+  if record.product_uom_qty/record.product_id.categ_id.x_studio_force_multiple_on_sales != round(record.product_uom_qty/record.product_id.categ_id.x_studio_force_multiple_on_sales,0):
+    raise UserError('You need to enter this product in multiples of ' +str(record.product_id.categ_id.x_studio_force_multiple_on_sales)+'.')
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Force Quantity Check</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.product_change_cb32cd3e-86c1-489f-9d45-39a090fc93bf" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.product_id.categ_id.x_studio_force_multiple_on_sales != 1:
+  record['product_uom_qty']=record.product_id.categ_id.x_studio_force_multiple_on_sales
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Product Change</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.product_change_d2029b12-32ac-43a8-be48-67090480f67f" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.product_id.categ_id.x_studio_force_multiple_on_sales != 1:
+  record['product_uom_qty']=record.product_id.categ_id.x_studio_force_multiple_on_sales
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order_line"/>
+    <field name="name">Product Change</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.reach_out_to_wait_li_15261e97-91a3-43f8-8b8e-6af6a0d1303b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[# Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - float_compare: Odoo function to compare floats based on specific precisions
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - UserError: Warning Exception to use with raise
+# To return an action, assign: action = {...}
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_event"/>
+    <field name="name">Reach Out to Wait List Customer (Old)</field>
+    <field name="sequence">5</field>
+    <field name="state">next_activity</field>
+  </record>
+  <record id="studio_customization.reach_out_to_wait_li_2607ec7a-96c9-4711-9963-5deb414c6985" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[raise UserError("Triggered")
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Reach Out to Wait List Customer</field>
+    <field name="sequence">5</field>
+    <field name="state">next_activity</field>
+  </record>
+  <record id="studio_customization.refresh_component_am_b8c75e31-ee59-4f46-8033-840108cf0292" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[rec=record.x_studio_requirements_report
+#Remove old components
+env.cr.execute("""DELETE FROM x_set_group_components WHERE x_studio_batch_set_group="""+str(rec.id))
+#Add all components
+for btchset in rec.x_studio_proposed_batches:
+  for lne in btchset.x_studio_product.bom_ids.bom_line_ids:
+    existline=env['x_set_group_components'].search([('x_studio_batch_set_group','=',rec.id),('x_studio_product','=',lne.product_id.id)],limit=1)
+    if len(existline)<1:
+      existline=env['x_set_group_components'].create({
+        'x_studio_product':lne.product_id.id,
+        'x_studio_batch_set_group':rec.id
+        })
+    existline['x_studio_quantity']+=lne.product_qty*btchset.x_studio_batch_quantity
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.proposed_batch_03c83941-2d0f-48e4-99bf-c3936cc3fd72"/>
+    <field name="name">Refresh Component Amount</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.refresh_components_5f8f8d3d-0225-4541-89e7-c8334ae94ad2" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.x_studio_batch_set_group: 
+  #Remove old components
+  env.cr.execute("""DELETE FROM x_set_group_components WHERE x_studio_batch_set_group="""+str(record.x_studio_batch_set_group.id))
+  #Add all components
+  for btchset in record.x_studio_batch_set_group.x_studio_batch_sets:
+    for mo in btchset.x_manufacturing_orders:
+      for move in mo.move_raw_ids:
+        existline=env['x_set_group_components'].search([('x_studio_batch_set_group','=',record.x_studio_batch_set_group.id),('x_studio_product','=',move.product_id.id)],limit=1)
+        if len(existline)<1:
+          existline=env['x_set_group_components'].create({
+            'x_studio_product':move.product_id.id,
+            'x_studio_batch_set_group':record.x_studio_batch_set_group.id
+            })
+        existline['x_studio_quantity']+=move.product_uom_qty
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.batch_sets_c7b48938-15ac-4a8a-8355-4b51aed55037"/>
+    <field name="name">Refresh Components</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.remove_credit_card_o_f0cad901-3819-435d-ae62-562678abd836" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for lne in record.move_id.line_ids:
+  env.cr.execute("""DELETE FROM account_partial_reconcile WHERE debit_move_id="""+str(lne.id))
+  env.cr.execute("""DELETE FROM account_partial_reconcile WHERE credit_move_id="""+str(lne.id))
+  env.cr.execute("""DELETE FROM account_move_line WHERE id="""+str(lne.id))
+    
+env.cr.execute("""DELETE FROM account_move WHERE id="""+str(record.move_id.id))
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move_line"/>
+    <field name="name">Remove Credit Card Over/Under</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.remove_second_regist_6b094d32-56f2-4ad0-9273-cb48d6f44a0a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record.action_cancel()
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="event.model_event_registration"/>
+    <field name="name">Remove Second Registration for Remainder</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.set_journal_632a2479-4c1c-429d-b6e0-4787d23396db" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[salesorders = env['sale.order'].search([("name","=",record.invoice_origin)])
+
+for salesorder in salesorders:
+  if salesorder.x_studio_will_call_location:
+    shippingtypename = salesorder.x_studio_will_call_location.x_name
+
+if "eugene" in shippingtypename:
+  record['journal_id'] = 14
+else:
+  record['journal_id'] = record.create_uid.x_studio_userlocation.x_studio_journal.id
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Set Journal</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.set_transfer_number_d9bc5c05-c05d-498a-9171-9c5699cd1e65" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['x_name']='Transfer '+str(record.id)
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="studio_customization.inter_warehouse_tran_080ce3c2-fcdc-4e63-88e5-51db38763cbb"/>
+    <field name="name">Set Transfer Number</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.set_will_call_locati_22bfc4ad-e4f8-48a0-b83c-923d45de5e54" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['warehouse_id'] = record.x_studio_will_call_location
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Set Will Call Location</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.stop_shipment_valida_7b8bc861-dc23-47d3-8bd0-1a732ceadb88" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.x_studio_shippingfreight_type.id!=13:
+  if record.x_studio_shipping_cost == False or record.x_studio_shipping_cost<=0:
+    raise UserError("You must set a shipping price to finish this shipment.")
+  
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Stop Shipment Validation without Price</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.subtotal_override_f40a7851-925d-4f87-93e2-e98c9914ab89" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[chngcnt=0
+for line in record.invoice_line_ids:
+  if line.x_studio_subtotal_override:
+    chngcnt+=1
+    line['price_unit'] = line.x_studio_subtotal_override/line.quantity
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Subtotal Override</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.this_guy_d0f9cbca-2b5d-44a9-a6df-7c1471231fb5" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.move_type == 'in_invoice':
+  
+  for line in record.invoice_line_ids:
+    line['price_unit'] = 20
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">This guy</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.try_to_set_existing__296524c4-349e-455a-82a2-a0c828da7393" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[origpartner=record.partner_id
+existcontact=env['res.partner'].search([('email','=',record.partner_id.email),('id','!=',record.partner_id.id)],limit=1)
+if existcontact:
+  record['partner_id']=existcontact
+  origpartner['active']=False
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="base.model_res_users"/>
+    <field name="name">Try to Set Existing Contact</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_gift_card_app_cabe3488-3391-494c-9d69-be9d7758db7e" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[giftcardlines=env['x_gift_cards'].search([('x_studio_card_number','=',record.pack_lot_ids)])
+for lne in giftcardlines:
+  lne.update({'x_studio_purchaser': record.order_id.partner_id.id,
+  'x_studio_initial_value': record.price_subtotal
+  })
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Update Gift Card App on Purchase</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_gift_card_val_be4bf46d-1eac-4cfa-bd2f-c83a98457c4c" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[for packlot in record.pack_lot_ids:
+  giftcards=env['x_gift_cards'].search([('x_studio_card_number','=',packlot.lot_name)])
+  for giftcard in giftcards:
+    giftcard['x_studio_initial_value']=record.price_subtotal
+    giftcard['x_studio_current_value']=record.price_subtotal
+    giftcard['x_studio_purchaser']=record.order_id.partner_id
+    giftcard['x_name']=giftcard.x_studio_card_number
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="point_of_sale.model_pos_order_line"/>
+    <field name="name">Update Gift Card Value and Purchaser</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_interwarehous_6d45eeea-bba1-4c12-a97f-f0234e0c7742" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+if record.product_id.id==57108:
+  raise UserError('By Move Done '+str(record.quantity_done)+' Demand '+str(record.product_uom_qty))
+ 
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_move"/>
+    <field name="name">Update Interwarehouse Transfers</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_interwarehous_cbef8457-34a3-48b5-821d-230e68a260c7" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+if record.product_id.id==57108:
+  raise UserError('By Move Done '+str(record.quantity_done)+' Demand '+str(record.product_uom_qty))
+ 
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_move"/>
+    <field name="name">Update Interwarehouse Transfers</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_journal_based_c8871ed3-97d5-4fbc-99d7-62e39e35a7ad" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['name']=False
+origins=env['sale.order'].search([('name','=',record.invoice_origin)])
+for origin in origins:
+  record['journal_id']=origin.x_studio_will_call_location.x_studio_journal.id
+  
+  
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="name">Update Journal Based on Shipping Method</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_journal_df50ea8b-47ae-4c6a-b36d-cce8e3ed443a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['journal_id'] = record.x_studio_payment_format.x_studio_field_Jv5am.id
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Journal</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_9134abb0-ada8-480d-ae0a-109c784b00e8" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#record['x_studio_point_value_available']=record.partner_id.loyalty_points
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_92ff174f-2f83-42ad-9ab9-4d44d7ddbd64" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+record['x_studio_point_value_available']=record.partner_id.loyalty_points
+
+if record.amount<=record.x_studio_point_value_available/100:
+  record.partner_id['loyalty_points']=record.partner_id.loyalty_points-record.amount*100
+  record['x_studio_gift_card_calculated']=True
+else:
+  raise UserError('This customer does not have enough loyalty points. They only have '+str("${:,.2f}".format(record.x_studio_point_value_available/100))+'. They need '+str("${:,.2f}".format(record.amount))+'.')
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points on Gift Card Payment</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_loyalty_point_cbe51394-5874-48bd-857d-e82e7d2a225b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[#record['x_studio_point_value_available']=record.partner_id.loyalty_points
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment"/>
+    <field name="name">Update Loyalty Points</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_name_37ec3f3f-2527-46a6-9ffe-35e94d1f6782" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[
+if record.default_code:
+  codestring="("+ str(record.default_code) +") "
+else:
+  codestring=""
+  
+record['name']=codestring+str(record.x_studio_product_name)
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Update Name</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_name_on_descr_8effbeed-e442-44c8-9783-426aa64bdb06" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[if record.default_code:
+  codestring="("+ str(record.default_code) +") "
+else:
+  codestring=""
+  
+record['name'] = codestring+str(record.x_studio_description)
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="product.model_product_template"/>
+    <field name="name">Update Name on Description</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_other_transfe_7e6c9e12-e418-4fbb-af97-481e8147d8fa" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[othertransfer=env['stock.picking'].search([('x_studio_inter_warehouse_transfer','=',record.x_studio_inter_warehouse_transfer.id),('id','!=',record.id)],limit=1)
+#raise UserError(len(othertransfer))
+raise UserError('Move lines '+str(len(othertransfer.move_line_ids)))
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="stock.model_stock_picking"/>
+    <field name="name">Update Other Transfer on Interwarehouse</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_payment_amoun_c26c9387-e2df-478a-b1ee-3219c80fde9b" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['amount']=record.source_amount*(1+record.x_studio_payment_method.x_studio_fee_percent)
+if record.x_studio_payment_method.x_studio_fee_percent > 0:
+  record['payment_difference_handling']='reconcile'
+  record['writeoff_account_id']=record.x_studio_payment_method.x_studio_fee_account.id
+  record['writeoff_label']='Credit Card Fees'
+  record['x_hidewriteoff']=True
+else:
+  record['payment_difference_handling']='reconcile'
+  record['writeoff_account_id']=False
+  record['writeoff_label']='Write Off'
+  record['x_hidewriteoff']=False
+  
+  
+
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="account.model_account_payment_register"/>
+    <field name="name">Card Fees for Register Payment</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_price_on_sale_2aa5f21f-9c8a-44e3-b3ee-6814787c6295" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[saleline = record.sale_line_id.id
+trans = env['sale.order.line'].search([("id","=",saleline)])
+for tran in trans:
+  tran['state']="sale"
+  
+  
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Unlock Sales Order</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_price_on_sale_3bb38226-a88e-4537-bb62-8ffd74f65d66" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[saleline = record.sale_line_id.id
+trans = env['sale.order.line'].sudo().search([("id","=",saleline)])
+for tran in trans:
+  tran['state'] = "sale"
+  #tran['price_unit'] = record.x_studio_firingprice
+  #tran['state']="done"
+  
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Update Price on Sales Order</field>
+    <field name="sequence">6</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_price_on_sale_b77b0caa-688b-4626-aefb-84055177169a" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[saleline = record.sale_line_id.id
+
+trans = env['sale.order.line'].search([("id","=",saleline)])
+saletrans = env['sale.order'].search([("id","=",trans.order_id.id)])
+if record.x_studio_scrape_fee > 0:
+  for saletran in saletrans:
+    saletran['state'] = "sale"
+    saletran.order_line.create({
+      'order_id':saletran.id,
+      'product_id' : 59480,
+      'price_unit' : record.x_studio_scrape_fee,
+      'product_uom_qty' : 1,
+      'qty_delivered':1
+    })
+for tran in trans:
+  tran['price_unit'] = record.x_studio_firingprice
+  tran['qty_delivered'] = tran.product_uom_qty
+salename=False  
+for saletran in saletrans:
+  saletran['state'] = "sale"
+  saletran._create_invoices()
+  salename = saletran.name
+invoicerecords = env['account.move'].search([("invoice_origin","=",salename)])
+for invoicerecord in invoicerecords:
+  invoicerecord.action_post()
+  
+  
+  
+  
+
+
+  
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="project.model_project_task"/>
+    <field name="name">Execute Code</field>
+    <field name="sequence">6</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_warehouse_3d63df52-ea79-4697-9180-b932a8400627" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['warehouse_id'] = record.x_studio_will_call
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Update Warehouse</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_warehouse_for_0da34e0c-da8b-4c30-8a1a-7f744cc57a01" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['warehouse_id'] = record.x_studio_will_call_location]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Update Warehouse for Will Call</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+  <record id="studio_customization.update_will_call_ee15d379-64b2-4323-a678-b95dfa668cd0" model="ir.actions.server" context="{'studio': True}">
+    <field name="binding_model_id" eval="False"/>
+    <field name="binding_type">action</field>
+    <field name="binding_view_types">list,form</field>
+    <field name="child_ids" eval="[(6, 0, [])]"/>
+    <field name="code"><![CDATA[record['warehouse_id'] = record.x_studio_will_call_location
+
+
+
+]]></field>
+    <field name="crud_model_id" eval="False"/>
+    <field name="help" eval="False"/>
+    <field name="link_field_id" eval="False"/>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="name">Update Will Call</field>
+    <field name="sequence">5</field>
+    <field name="state">code</field>
+  </record>
+</odoo>
